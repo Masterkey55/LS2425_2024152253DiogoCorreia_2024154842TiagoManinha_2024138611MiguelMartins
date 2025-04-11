@@ -1,9 +1,8 @@
 function App() {
   return (
-    <div id="container">
-      <h2>Ficha 8</h2>
-      Este é o Componente App
-    </div>
+    <svg height="500" width="530">
+      <image height="500" width="530" fill = "blue" href="./assets/images/tabuleiro.svg" />
+    </svg>
   );
 }
 
