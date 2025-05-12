@@ -1,0 +1,71 @@
+body {
+    font-family: "Jersey 10", sans-serif;
+
+    margin: 0;
+}
+
+.container-menu {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    width: 100%;
+}
+
+h1 {
+    margin: auto auto 50px auto;
+    color: black;
+    font-weight: lighter;
+    letter-spacing: 1px;
+    text-align: center;
+    font-size: 10em;
+}
+
+.container-botoes {
+    display: flex;
+    margin: auto;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.botao {
+    position: relative;
+    outline: none;
+    margin: 50px;
+    padding: 10px;
+    width: 240px;
+    height: 240px;
+    border: none;
+    border-radius: 10px;
+}
+
+.botao:hover {
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.botao img {
+    position: relative;
+    width: 140px;
+    height: 140px;
+}
+
+.botao div {
+    font-family: "Jersey 10", sans-serif;
+    margin-top: 10px;
+    line-height: 0.8em;
+    text-transform: uppercase;
+    font-size: 2.5em;
+}
+
+.amarelo:hover {
+    box-shadow: 0 0 50px #fff200;
+}
+
+.azul:hover {
+    box-shadow: 0 0 40px #319bff;
+}
+
+.vermelho:hover {
+    box-shadow: 0 0 40px #ff3c31;
+}

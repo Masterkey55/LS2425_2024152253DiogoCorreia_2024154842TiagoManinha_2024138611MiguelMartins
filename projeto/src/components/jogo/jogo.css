@@ -1,0 +1,36 @@
+.container-tabuleiro {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.tabuleiro {
+    position: absolute;
+    width: 70vh;
+    height: 65vh;
+    z-index: 1;
+}
+
+.slots-container {
+    position: absolute;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(7, 1fr);
+    width: 68vh;
+    height: 69vh;
+    top:7vh;
+}
+
+.slot {
+    position: relative;
+    margin: auto;
+    width: 80%;
+    height: 80%;
+    user-select: none;
+    margin-top: 2.3vh;
+    border-radius: 50%;
+    background-color: rgba(16, 216, 19, 0.666);
+}

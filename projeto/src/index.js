@@ -1,11 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Inicio from "./components/inicio.jsx"
+import App from "./App.js"
 import "./assets/styles/index.css";
 
 ReactDOM.render(
     <React.StrictMode>
-        <Inicio />
+        <App />
     </React.StrictMode>,
     document.getElementById("root")
 );
