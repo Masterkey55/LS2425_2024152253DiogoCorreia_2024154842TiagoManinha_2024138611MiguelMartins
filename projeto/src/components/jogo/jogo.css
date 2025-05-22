@@ -26,18 +26,15 @@
     grid-template-columns: repeat(7, 1fr);
     grid-template-rows: repeat(6, 1fr);
     width: 98%;
-    height: 90%;
-    top: 43%;
+    height: 92%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translateX(-50%);
 }
 
 .slot {
     position: relative;
     width: 100%;
     height: 100%;
-    user-select: none;
-    margin-top: 2.3vh;
     border-radius: 50%;
-    background-color: rgba(16, 216, 19, 0.666);
+    background-color: rgba(86, 16, 216, 0.666);
 }
