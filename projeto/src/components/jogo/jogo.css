@@ -1,16 +1,22 @@
-.container-tabuleiro {
+.container-jogo {
+    position: relative;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
     width: 100%;
     height: 100%;
 }
 
-.tabuleiro {
-    position: absolute;
+.container-tabuleiro {
+    position: relative;
+    margin: auto;
     width: 70vh;
     height: 65vh;
+    z-index: 1;
+}
+
+.tabuleiro {
+    position: absolute;
+    width: 100%;
+    height: 100%;
     z-index: 1;
 }
 
@@ -18,17 +24,18 @@
     position: absolute;
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    grid-template-rows: repeat(7, 1fr);
-    width: 68vh;
-    height: 69vh;
-    top:7vh;
+    grid-template-rows: repeat(6, 1fr);
+    width: 98%;
+    height: 90%;
+    top: 43%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .slot {
     position: relative;
-    margin: auto;
-    width: 80%;
-    height: 80%;
+    width: 100%;
+    height: 100%;
     user-select: none;
     margin-top: 2.3vh;
     border-radius: 50%;
