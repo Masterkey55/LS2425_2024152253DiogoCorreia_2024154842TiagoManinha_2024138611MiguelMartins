@@ -58,14 +58,14 @@ h1 {
     font-size: 2.5em;
 }
 
-.amarelo:hover {
+.container-botoes .amarelo:hover {
     box-shadow: 0 0 50px #fff200;
 }
 
-.azul:hover {
+.container-botoes .azul:hover {
     box-shadow: 0 0 40px #319bff;
 }
 
-.vermelho:hover {
+.container-botoes .vermelho:hover {
     box-shadow: 0 0 40px #ff3c31;
 }
