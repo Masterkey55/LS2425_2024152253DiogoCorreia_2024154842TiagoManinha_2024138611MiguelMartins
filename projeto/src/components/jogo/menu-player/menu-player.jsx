@@ -2,14 +2,15 @@ import React from 'react';
 import './menu-player.css';
 
 export default function MenuPlayer(props) {
-    const { currentPlayer, gameOver } = props;
+    const { currentPlayer, gameOver, jogador } = props;
+    const { nome, cor } = jogador; 
     return (
-        <div class = "menu-player">
-            <div class = "color-container">
-                <div className={`color ${currentPlayer}`}></div>
+        <div className = "menu-player">
+            <div className = "color-container">
+                <div className={`color ${cor}`}></div>
             </div>
-            <div class = "player-info">
-                <span className="player-name">Tiago</span>
+            <div className = "player-info">
+                <span className="player-name">{nome}</span>
                 <div className = "time-container">
                     <div><span>10</span>s</div>
                 </div>

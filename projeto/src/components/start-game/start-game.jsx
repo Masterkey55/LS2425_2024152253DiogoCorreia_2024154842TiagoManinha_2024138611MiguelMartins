@@ -8,40 +8,39 @@ function Startgame({ onMenuChange }) {
     { id: 2, nome: "", cor: "" },
   ]);
 
+  function mudarValor(id, campo, valor) {
+      const novaLista = jogadores.map((jogador) => {
+          if (jogador.id === id) {
+              return {
+              ...jogador,
+              [campo]: valor,
+              };
+          } else {
+              return jogador;
+          }
+      });
 
-function mudarValor(id, campo, valor) {
+    setJogadores(novaLista);
+  }
 
-    const novaLista = jogadores.map((jogador) => {
-        if (jogador.id === id) {
-            return {
-            ...jogador,
-            [campo]: valor,
-            };
-        } else {
-            return jogador;
-        }
-    });
+  function handleSubmit(e) {
+      e.preventDefault();
 
-setJogadores(novaLista);
-}
+      let algumEmBranco = false;
+      for (let i = 0; i < jogadores.length; i++) {
+          if (jogadores[i].nome.trim() === "" || jogadores[i].cor === "") {
+              algumEmBranco = true;
+              break;
+          }
+      }
 
+      if (algumEmBranco) {
+        alert("Todos os jogadores devem preencher nome e escolher uma cor.");
+        return;
+      }
 
-function handleSubmit(e) {
-    e.preventDefault();
-
-    const algumEmBranco = jogadores.some(
-        (j) => j.nome.trim() === "" || j.cor === ""
-    );
-
-    if (algumEmBranco) {
-    alert("Todos os jogadores devem preencher nome e escolher uma cor.");
-    return;
-    }
-
-    alert("Jogo iniciado!");
-    onMenuChange("jogo");
-}
-
+      onMenuChange("jogo", jogadores);
+  }
 
   const coresEscolhidas = {};
   jogadores.forEach((j) => {
@@ -50,7 +49,7 @@ function handleSubmit(e) {
     }
   });
 
-  return (
+  return ( 
     <div className="container-start-game">
       <div className="container-opcoes">
         <form onSubmit={handleSubmit}>
@@ -64,7 +63,6 @@ function handleSubmit(e) {
           ))}
 
           <button type="submit">Começar Jogo</button>
-
         </form>
       </div>
     </div>

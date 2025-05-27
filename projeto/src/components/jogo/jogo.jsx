@@ -50,13 +50,16 @@ function checkIfVitoria(discMatrix) {
 }
 
 function Jogo(props) {
+    const { onMenuChange, jogadores } = props;
+    let randomPlayer = Math.random() < 0.5 ? 0 : 1;
     const [hoveredIndex, setHoveredIndex] = useState([]);
-    const [currentPlayer, setCurrentPlayer] = useState("vermelho");
+    const [currentPlayer, setCurrentPlayer] = useState(jogadores[randomPlayer].cor);
     const [gameOver, setGameOver] = useState(false);
     const [topDisc, setTopDisc] = useState(0)
     const [discMatrix, setDiscMatrix] = useState(
                 Array.from({ length: 6 }, () => Array(7).fill(null))
             );
+            
 
     const handleClick = (coluna) => {
         if (checkIfColunaVazia(coluna, discMatrix) && !gameOver) {
@@ -74,7 +77,7 @@ function Jogo(props) {
                 setGameOver(true)
             }
 
-            setCurrentPlayer(currentPlayer === "vermelho" ? "amarelo" : "vermelho");
+            setCurrentPlayer(currentPlayer === jogadores[0].cor ? jogadores[1].cor : jogadores[0].cor);
         }
     }
 
@@ -89,7 +92,7 @@ function Jogo(props) {
 
     return (
         <div className={"container-jogo"}>
-            <MenuPlayer/>
+            <MenuPlayer jogador = {jogadores[0]}/>
             <div className="container-tabuleiro">
                 { !gameOver && 
                     <div className="disc-container">
@@ -125,7 +128,7 @@ function Jogo(props) {
                     </div>
                 </div>
             </div>
-            <MenuPlayer/>
+            <MenuPlayer jogador = {jogadores[1]}/>
         </div>
     );
 }

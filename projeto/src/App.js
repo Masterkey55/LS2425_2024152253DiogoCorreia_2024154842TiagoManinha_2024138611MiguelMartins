@@ -5,13 +5,17 @@ import Startgame from "./components/start-game/start-game.jsx";
 import "./index.css";
 
 function App() {
-  let [currentMenu, setCurrentMenu] = useState("inicio");
+  const [currentMenu, setCurrentMenu] = useState("inicio");
+  const [jogoProps, setJogoProps] = useState({});
 
-  let handleMenuChange = (menu) => {
+  const handleMenuChange = (menu, objeto) => {
+    if (menu === "jogo") {
+      setJogoProps(objeto || {});
+    }
     setCurrentMenu(menu);
-  }
-  
-  let renderMenu = () => {
+  };
+
+  const renderMenu = () => {
     switch (currentMenu) {
       case "inicio":
         return <Inicio onMenuChange={handleMenuChange} />;
@@ -20,7 +24,7 @@ function App() {
       case "jogador":
         return <Startgame onMenuChange={handleMenuChange} />;
       case "jogo":
-        return <Jogo onMenuChange ={handleMenuChange}/>
+        return <Jogo onMenuChange={handleMenuChange} jogadores={jogoProps} />;
       default:
         return <Inicio onMenuChange={handleMenuChange} />;
     }

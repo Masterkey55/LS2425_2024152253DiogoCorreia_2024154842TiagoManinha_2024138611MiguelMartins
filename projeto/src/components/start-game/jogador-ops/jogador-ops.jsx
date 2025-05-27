@@ -3,6 +3,7 @@ import "./jogador-ops.css";
 
 const cores = ["vermelho", "amarelo", "verde", "cor-de-rosa"];
 
+
 function Jogadorops({ jogador, coresEscolhidas, onChange }) {
   return (
     <div className="container-jogador">
@@ -25,20 +26,11 @@ function Jogadorops({ jogador, coresEscolhidas, onChange }) {
             jogador.cor !== cor;
 
             return (
-                <>
-                    <label key={cor} className={"radio " + cor + "-texto"}>
-                        {cor}
-                    </label>
-                    <input
-                        type="radio"
-                        name={`cor-${jogador.id}`}
-                        checked={jogador.cor === cor}
-                        disabled={corBloqueada}
-                        onChange={() => onChange(jogador.id, "cor", cor)}
-                    />
-                </>
+              <span key={cor} onClick={() => { if (!corBloqueada) onChange(jogador.id, "cor", cor); }} className={"radio " + cor + "-texto" + (jogador.cor === cor ? " selecionado" : "") + (corBloqueada ? " bloqueado" : "")}>
+                    {cor}
+              </span>
             )
-            
+       
         })}
       </div>
     </div>
