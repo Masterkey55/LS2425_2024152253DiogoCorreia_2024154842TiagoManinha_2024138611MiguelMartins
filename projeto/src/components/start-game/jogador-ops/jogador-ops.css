@@ -1,0 +1,91 @@
+.container-jogador{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    margin-bottom: 20px;
+}
+
+h1{
+    font-size: 50px;
+    margin: 0;
+}
+
+.nome-jogador{
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 20px;
+    margin-bottom: 15px;
+    border: 4px solid white;
+}
+
+.nome-jogador:hover{
+    background-color: rgb(235, 235, 235);
+    border: 4px solid rgb(235, 235, 235);
+}
+
+.nome-jogador:focus{
+    outline: none;
+    background-color: rgb(225, 225, 225);
+    border: 4px solid rgb(225, 225, 225);
+}
+
+p{
+    padding: 0px;
+    margin: 0px;
+    color: gray;
+    font-size: 20px;
+}
+    
+.cor{
+    font-weight: 200;
+    font-size: 25px;
+    background-color: rgb(56, 56, 56);
+    display: flex;
+    justify-content: center; /* alinha no centro horizontal */
+    align-items: center; 
+}
+
+.cor input{
+    margin: 0;
+    margin-right: 4px;
+    appearance: none;
+    -webkit-appearance: none; 
+    -moz-appearance: none;
+
+
+}
+
+.cor label{
+    margin: auto;
+    cursor: pointer;
+}
+
+.vermelho-texto{
+    color: red;
+}
+
+.amarelo-texto{
+    color: yellow;
+}  
+
+.verde-texto{
+    color: green;
+}
+
+.cor-de-rosa-texto{
+    color: pink;
+}
+
+.cor input:checked + label{
+    background-color: blue;
+}
+
+.cor input::before {
+    content:"";
+    width: 40px;
+    height: 100%;
+  
+}
+

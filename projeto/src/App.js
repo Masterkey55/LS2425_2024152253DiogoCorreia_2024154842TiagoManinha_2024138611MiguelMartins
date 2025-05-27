@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Inicio from "./components/inicio/inicio.jsx"
 import Jogo from "./components/jogo/jogo.jsx"
+import Startgame from "./components/start-game/start-game.jsx";
 import "./index.css";
 
 function App() {
@@ -17,7 +18,9 @@ function App() {
       case "ranking":
         // return <Ranking onMenuChange={handleMenuChange} />;
       case "jogador":
-        return <Jogo onMenuChange={handleMenuChange} />;
+        return <Startgame onMenuChange={handleMenuChange} />;
+      case "jogo":
+        return <Jogo onMenuChange ={handleMenuChange}/>
       default:
         return <Inicio onMenuChange={handleMenuChange} />;
     }
