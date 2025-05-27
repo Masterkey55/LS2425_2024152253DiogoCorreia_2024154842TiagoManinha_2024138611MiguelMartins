@@ -4,7 +4,7 @@ export default function Slot(props) {
     const { isHovered, value, row, col } = props;
     let initialPosition = -(row + 1) * 100
     const [position, setPosition] = useState(0);
-    let tempoAnimacao = (row + 1) / 2 * 0.11
+    let tempoAnimacao = (row + 1) / 2 * 0.13
     
     useEffect(() => {
         setPosition(initialPosition);

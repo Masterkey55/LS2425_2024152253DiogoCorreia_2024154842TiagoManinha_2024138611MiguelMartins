@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./jogo.css";
 import Slot from "./slot/slot.jsx";
 import imagemTabuleiro from "../../assets/img/tabuleiro.png";
+import MenuPlayer from "./menu-player/menu-player.jsx";
 
 function checkIfColunaVazia(coluna, discMatrix) {
     for (let i = 0; i < 6; i++) {
@@ -68,7 +69,8 @@ function Jogo(props) {
             }
             setDiscMatrix(newDiscMatrix);
 
-            if (checkIfVitoria(discMatrix)) {
+            if (checkIfVitoria(discMatrix) == true) {
+                setHoveredIndex([]);
                 setGameOver(true)
             }
 
@@ -87,12 +89,13 @@ function Jogo(props) {
 
     return (
         <div className={"container-jogo"}>
-            <div class="container-tabuleiro">
+            <MenuPlayer/>
+            <div className="container-tabuleiro">
                 { !gameOver && 
                     <div className="disc-container">
                         <div className = {currentPlayer} 
                             style={{
-                            left: `${topDisc * 14}%`
+                            left: `${topDisc * 14.05}%`
                         }}
                         ></div>
                     </div>
@@ -115,13 +118,14 @@ function Jogo(props) {
                             })
                         )}
                     </div>
-                    <div class = "colunas">
-                        {Array.from({ length: 7 }).map((_, i) => (
+                    <div className = "colunas">
+                        {!gameOver && Array.from({ length: 7 }).map((_, i) => (
                             <div key={i} className="coluna" onClick={() => handleClick(i)} onMouseEnter={() => handleHover(i)} onMouseLeave={() => setHoveredIndex([])}></div>
                         ))}
                     </div>
                 </div>
             </div>
+            <MenuPlayer/>
         </div>
     );
 }
