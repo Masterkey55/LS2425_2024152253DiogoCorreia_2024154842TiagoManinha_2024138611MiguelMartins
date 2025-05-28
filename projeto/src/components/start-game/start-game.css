@@ -1,51 +1,52 @@
-.container-start-game{
+.container-opcoes{
     position: relative;
     display: flex;
-    width: 30%;
-    height: 70%; 
-    margin: auto;
-    border-radius: 50px;
-    background-color: lightskyblue;
-}
-
-.container-opcoes{
-
-    display: flex;
     flex-direction: column;
-    margin: auto;
-    width: 80%;
+    margin: auto 0;
+    user-select: none;
+    width: 100%;
+    height: 100%;
 }
 
-form{
+form {
     display: flex;
     flex-direction: column;
     width: 100%;
     height: 100%;
 }
 
+.formulario {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 60%;
+    margin-top: auto;
+}
 
+.versus {
+    position: relative;
+    margin: auto 2% auto 1%;
+    font-size: 25vh;
+    font-style: italic;
+    color: #319bff;
+    -webkit-text-stroke: 1vh white;
+}
 
 .container-opcoes button{
-    padding: 9%;
-    border-radius: 20px;
-    margin-top: 10%;
-
-
-    background-color: rgb(63, 139, 253);
-    border: 2px solid rgb(63, 139, 253);;
+    font-family: "Jersey 10", sans-serif;
+    padding: 1vh 4vh;
+    border-radius: 1vh;
+    margin: auto;
+    background-color: #ffffff;
+    border: none;
     cursor: pointer;
     text-decoration: none;
     transition-duration: 0.2s;
-
     color: black;
-    font-weight: 700;
-    font-size: 35px;
+    font-size: 5vh;
 }
 
 .container-opcoes button:hover{
-
-    background-color: rgb(15, 86, 192);
-    border: 2px solid white;
+    background-color: #65b5ff;
     color: white;
-
 }

@@ -1,6 +1,5 @@
 body {
     font-family: "Jersey 10", sans-serif;
-
     margin: 0;
 }
 
@@ -14,10 +13,13 @@ body {
 
 h1 {
     margin: auto auto 50px auto;
-    color: black;
     font-weight: lighter;
     letter-spacing: 1px;
     text-align: center;
+}
+
+.titulo {
+    color: black;
     font-size: 10em;
 }
 

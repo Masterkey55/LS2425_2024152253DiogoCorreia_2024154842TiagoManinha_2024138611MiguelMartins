@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import "./start-game.css";
 import Jogadorops from "./jogador-ops/jogador-ops.jsx";
+import VsImage from "../../assets/img/vs.png";
+
 
 function Startgame({ onMenuChange }) {
   const [jogadores, setJogadores] = useState([
-    { id: 1, nome: "", cor: "" },
-    { id: 2, nome: "", cor: "" },
+    { id: 1, nome: "", equipa: "" },
+    { id: 2, nome: "", equipa: "" },
   ]);
 
   function mudarValor(id, campo, valor) {
@@ -50,21 +52,15 @@ function Startgame({ onMenuChange }) {
   });
 
   return ( 
-    <div className="container-start-game">
-      <div className="container-opcoes">
-        <form onSubmit={handleSubmit}>
-          {jogadores.map((jogador) => (
-            <Jogadorops
-              key={jogador.id}
-              jogador={jogador}
-              coresEscolhidas={coresEscolhidas}
-              onChange={mudarValor}
-            />
-          ))}
-
-          <button type="submit">Começar Jogo</button>
-        </form>
-      </div>
+    <div className="container-opcoes">
+      <form onSubmit={handleSubmit}>
+        <div className = "formulario">
+          <Jogadorops jogador={jogadores[0]} coresEscolhidas={coresEscolhidas} onChange={mudarValor} />
+          <span className = "versus">VS</span>
+          <Jogadorops jogador={jogadores[1]} coresEscolhidas={coresEscolhidas} onChange={mudarValor} />
+        </div>
+        <button type="submit">JOGAR!</button>
+      </form>
     </div>
   );
 }
