@@ -3,48 +3,52 @@
     display: flex;
     flex-direction: column;
     width: 20%;
-    margin: 0 auto;
-    background-color: #319bff;
+    margin: 0;
+    margin-left: auto;
+    margin-right: 0.5%;
+    background-color: white;
     border-radius: 2vh;
     user-select: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.container-jogador:last-of-type{
+    margin-left: 0.5%;
+    margin-right: auto;
 }
 
 h1{
     font-size: 6vh;
-    color: white;
+    color: #003366;
     margin: 5% 0;
     margin-bottom: 0%;
 }
 
 h2 {
     margin: 0 auto;
-    margin-top: 5%;
-    font-size: 2vh;
+    margin-top: 2%;
+    color: #333333;
+    font-size: 3vh;
     font-weight: lighter;
-    color: black;
 }
 
 .nome-jogador{
     position: relative;
     font-family: "Jersey 10", sans-serif;
     width: 60%;
-    margin: 2% auto 5% auto;
-    text-align: center;
-    border-radius: 0.5vh;
+    margin: 6% auto;
+    border-radius: 1.5vh;
     padding: 10px;
     font-size: 20px;
-    border: 4px solid white;
-}
-
-.nome-jogador:hover{
-    background-color: rgb(235, 235, 235);
-    border: 4px solid rgb(235, 235, 235);
+    font-weight: lighter;
+    color: #333;
+    border: 2px solid #D1D1D1;
 }
 
 .nome-jogador:focus{
+    border-color: #007BFF;
     outline: none;
-    background-color: rgb(225, 225, 225);
-    border: 4px solid rgb(225, 225, 225);
+    box-shadow: 0 0 5px rgba(0,123,255,0.5);
 }
 
 p{
@@ -67,12 +71,12 @@ p{
 
 .team-container {
     position: relative;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
     margin: 3% 0;
     width: 80%;
-    height: 35%;
+    height: auto;
     left: 10%;
     gap: 3%;
 }
@@ -80,13 +84,35 @@ p{
 .team {
     position: relative;
     display: flex;
+    width: 31.3%;
+    margin-bottom: 3%;
+    aspect-ratio: 1/1;
     flex-direction: column;
-    border-radius: 0.5vh;
+    border-radius: 50%;
     background-color: white;
     box-sizing: border-box;
     transition: all ease-in 0.18s;
     cursor: pointer;
 }
+
+.team.selected::after {
+  content: "✓";
+  position: absolute;
+  padding: 0.3vh 1vh;
+  background-color: #2196f3;
+  border-radius: 50%;
+  bottom: 0;
+  right: 0;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.team.blocked {
+  pointer-events: none;
+  filter: grayscale(0.7);
+}
+
 
 .team:hover {
     opacity: 0.8;
@@ -109,10 +135,17 @@ p{
 }
 
 .aleatoria-opcao {
-    margin: 2%;
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 7%;
     display: flex;
     justify-content: center;
     margin-bottom: 15px;
+}
+
+.aleatoria-opcao h2 {
+    width: auto;
+    margin: auto 2%;
 }
 
 .aleatoria-opcao label {
@@ -128,8 +161,57 @@ p{
 .aleatoria-opcao input[type="radio"] {
     accent-color: #4d5bf9;
     width: 16px;
-    height: 16px;
     cursor: pointer;
     margin: 0;
     margin-right: 15%;
+}
+
+.switch {
+  position: relative;
+  display: inline;
+  margin: auto 0;
+  width: 50px;
+  height: 26px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0%;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc; 
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+.slider::before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+.switch input:checked + .slider {
+  background-color: #007BFF;
+}
+
+.switch input:checked + .slider::before {
+  transform: translateX(24px);
+}
+
+.slider:hover {
+  box-shadow: 0 0 6px rgba(0, 123, 255, 0.5);
 }

@@ -23,30 +23,22 @@ form {
     margin-top: auto;
 }
 
-.versus {
-    position: relative;
-    margin: auto 2% auto 1%;
-    font-size: 25vh;
-    font-style: italic;
-    color: #319bff;
-    -webkit-text-stroke: 1vh white;
-}
-
 .container-opcoes button{
     font-family: "Jersey 10", sans-serif;
-    padding: 1vh 4vh;
-    border-radius: 1vh;
-    margin: auto;
-    background-color: #ffffff;
+    padding: 1vh 12vh;
+    border-radius: 6vh;
+    margin: -1% auto auto auto;
+    background-color: #28A745;
+    z-index: 1;
     border: none;
     cursor: pointer;
     text-decoration: none;
     transition-duration: 0.2s;
-    color: black;
+    color: white;
     font-size: 5vh;
 }
 
 .container-opcoes button:hover{
-    background-color: #65b5ff;
+    background-color: #218838;
     color: white;
 }

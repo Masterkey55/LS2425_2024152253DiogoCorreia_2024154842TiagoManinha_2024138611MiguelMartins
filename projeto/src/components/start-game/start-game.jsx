@@ -22,6 +22,7 @@ function Startgame({ onMenuChange }) {
           }
       });
 
+      console.log(jogadores)
     setJogadores(novaLista);
   }
 
@@ -55,11 +56,11 @@ function Startgame({ onMenuChange }) {
     <div className="container-opcoes">
       <form onSubmit={handleSubmit}>
         <div className = "formulario">
-          <Jogadorops jogador={jogadores[0]} coresEscolhidas={coresEscolhidas} onChange={mudarValor} />
-          <span className = "versus">VS</span>
-          <Jogadorops jogador={jogadores[1]} coresEscolhidas={coresEscolhidas} onChange={mudarValor} />
+         {jogadores.map(jogador => (
+          <Jogadorops key={jogador.id} jogador={jogador} coresEscolhidas={coresEscolhidas} onChange={mudarValor} />
+        ))}
         </div>
-        <button type="submit">JOGAR!</button>
+        <button type="submit">JOGAR</button>
       </form>
     </div>
   );
