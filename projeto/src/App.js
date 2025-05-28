@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Inicio from "./components/inicio/inicio.jsx"
 import Jogo from "./components/jogo/jogo.jsx"
 import Startgame from "./components/start-game/start-game.jsx";
+import Menuendgame from "./components/jogo/end-game/end-game.jsx";
 import "./index.css";
 
 function App() {
@@ -20,7 +21,7 @@ function App() {
       case "inicio":
         return <Inicio onMenuChange={handleMenuChange} />;
       case "ranking":
-        // return <Ranking onMenuChange={handleMenuChange} />;
+         return <Menuendgame onMenuChange={handleMenuChange} />;
       case "jogador":
         return <Startgame onMenuChange={handleMenuChange} />;
       case "jogo":

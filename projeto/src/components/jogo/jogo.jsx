@@ -3,6 +3,7 @@ import "./jogo.css";
 import Slot from "./slot/slot.jsx";
 import imagemTabuleiro from "../../assets/img/tabuleiro.png";
 import MenuPlayer from "./menu-player/menu-player.jsx";
+import Menuendgame from "./end-game/end-game.jsx";
 
 function checkIfColunaVazia(coluna, discMatrix) {
     for (let i = 0; i < 6; i++) {
@@ -74,7 +75,7 @@ function Jogo(props) {
 
             if (checkIfVitoria(discMatrix) == true) {
                 setHoveredIndex([]);
-                setGameOver(true)
+                setGameOver(true);
             }
 
             setCurrentPlayer(currentPlayer === jogadores[0].cor ? jogadores[1].cor : jogadores[0].cor);
@@ -89,6 +90,11 @@ function Jogo(props) {
         setTopDisc(coluna)
         setHoveredIndex(indices);
     };
+
+    const restartgame = ()=> {
+            setDiscMatrix(Array.from({ length: 6 }, () => Array(7).fill(null)));
+            setGameOver(false);
+    }
 
     return (
         <div className={"container-jogo"}>
@@ -129,6 +135,11 @@ function Jogo(props) {
                 </div>
             </div>
             <MenuPlayer jogador = {jogadores[1]}/>
+                        
+            {gameOver &&
+                <Menuendgame vencedor = {currentPlayer === jogadores[0].cor ? jogadores[1].cor : jogadores[0].cor} restart = {restartgame} inicio = {onMenuChange}/>
+            }
+
         </div>
     );
 }
