@@ -1,20 +1,17 @@
 import React, { useState } from "react";
 import "./start-game.css";
 import Jogadorops from "./jogador-ops/jogador-ops.jsx";
-import ISEC from "../../assets/img/ISEC.png";
-import ESEC from "../../assets/img/ESEC.png";
-import ESAC from "../../assets/img/ESAC.png";
-import ISCAC from "../../assets/img/ISCAC.png";
-import ESTGOH from "../../assets/img/ESTGOH.png";
-import ESTeSC from "../../assets/img/ESTESC.png";
+import IPClogo from '../../assets/logos/IPC-branco.png';
 
+
+const logo = IPClogo;
 const equipas = [
-  { id: 1, escola: "ISEC", cor: "#887e7b", cor2: "#9c0b0f", image: ISEC },
-  { id: 2, escola: "ESEC", cor: "#1b4165", cor2: "#ff5100", image: ESEC },
-  { id: 3, escola: "ESAC", cor: "#772c18", cor2: "#01bd70", image: ESAC },
-  { id: 4, escola: "ISCAC", cor: "#003567", cor2: "#e0251b", image: ISCAC },
-  { id: 5, escola: "ESTGOH", cor: "#a39a98", cor2: "#5d5dfe", image: ESTGOH },
-  { id: 6, escola: "ESTeSC", cor: "#ffff00", cor2: "#3db5e6", image: ESTeSC },
+  { id: 1, escola: "ISEC", cor: "#9d0b0e", cor2: "#ffffff", image: logo },
+  { id: 2, escola: "ESEC", cor: "#ff5300", cor2: "#ffffff", image: logo },
+  { id: 3, escola: "ESAC", cor: "#00c381", cor2: "#ffffff", image: logo },
+  { id: 4, escola: "ISCAC", cor: "#da291c", cor2: "#ffffff", image: logo },
+  { id: 5, escola: "ESTGOH", cor: "#525ea6", cor2: "#ffffff", image: logo },
+  { id: 6, escola: "ESTeSC", cor: "#3cb4e6", cor2: "#ffffff", image: logo },
 ];
 
 function Startgame({ onMenuChange }) {
