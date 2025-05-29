@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "./start-game.css";
 import Jogadorops from "./jogador-ops/jogador-ops.jsx";
-import VsImage from "../../assets/img/vs.png";
 
 
 function Startgame({ onMenuChange }) {
@@ -10,19 +9,19 @@ function Startgame({ onMenuChange }) {
     { id: 2, nome: "", equipa: "" },
   ]);
 
-  function mudarValor(id, campo, valor) {
-      const novaLista = jogadores.map((jogador) => {
-          if (jogador.id === id) {
-              return {
-              ...jogador,
-              [campo]: valor,
-              };
-          } else {
-              return jogador;
-          }
-      });
-
-      console.log(jogadores)
+  function mudarValor(id, campo, valor, equipa) {
+    const novaLista = jogadores.map((jogador) => {
+      if (jogador.id === id) {
+        let novosDados = { ...jogador, [campo]: valor };
+        if (equipa) {
+          const { id: _, ...restoEquipa } = equipa;
+          novosDados = { ...novosDados, ...restoEquipa };
+        }
+        return novosDados;
+      } else {
+        return jogador;
+      }
+    });
     setJogadores(novaLista);
   }
 
@@ -31,7 +30,7 @@ function Startgame({ onMenuChange }) {
 
       let algumEmBranco = false;
       for (let i = 0; i < jogadores.length; i++) {
-          if (jogadores[i].nome.trim() === "" || jogadores[i].cor === "") {
+          if (jogadores[i].nome.trim() === "" || jogadores[i].id === "") {
               algumEmBranco = true;
               break;
           }
@@ -47,8 +46,8 @@ function Startgame({ onMenuChange }) {
 
   const coresEscolhidas = {};
   jogadores.forEach((j) => {
-    if (j.cor) {
-      coresEscolhidas[j.id] = j.cor;
+    if (j.equipa != "") {
+      coresEscolhidas[j.id] = j.equipa;
     }
   });
 

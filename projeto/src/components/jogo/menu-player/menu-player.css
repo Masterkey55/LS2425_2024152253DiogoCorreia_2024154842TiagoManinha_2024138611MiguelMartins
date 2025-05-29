@@ -10,8 +10,8 @@
     font-weight: 100;
     color: rgba(0, 0, 0, 0.75);
     border-radius: 3.5vh;
-    box-shadow: inset 0 0 0 1.5vh #2c97fa;
     overflow: hidden;
+    background-color: white;
 }
 
 .menu-player:last-of-type {
@@ -24,15 +24,28 @@
   display: flex;
   width: 100%;
   height: 50%;
-  box-shadow: inset 0 0 0 1.5vh #2c97fa;
   border-radius: 4vh;
 }
 
 .color {
   margin: auto;
-  height: 60%;
+  display: flex;
+  flex-direction: column;
+  height: 70%;
   aspect-ratio: 1/1;
   border-radius: 50%;
+}
+
+.color span {
+  margin: 0% auto;
+  font-size: 3vh;
+}
+
+.color img {
+  position: relative;
+  margin: 0 auto;
+  margin-top: 10%;
+  width: 80%;
 }
 
 .player-info {
@@ -42,7 +55,6 @@
   bottom: 2%;
   width: 100%;
   height: 50%;
-  background-color: #2c97fa;
 }
 
 .player-name {
@@ -53,7 +65,6 @@
 
 .time-container {
   position: relative;
-  background-color: #1b578b;
   padding: 0.2vh 1vh;
   border-radius: 1vh;
   color: rgba(0, 0, 0, 0.6);

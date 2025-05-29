@@ -74,7 +74,7 @@
 }
 
 .hovered {
-    background-color: rgb(185, 185, 185);
+    background-color: rgba(185, 185, 185, 0.2);
 }
 
 .disc-container {

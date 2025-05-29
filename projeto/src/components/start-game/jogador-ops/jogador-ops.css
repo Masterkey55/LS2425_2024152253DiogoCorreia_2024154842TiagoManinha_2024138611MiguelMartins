@@ -110,7 +110,7 @@ p{
 
 .team.blocked {
   pointer-events: none;
-  filter: grayscale(0.7);
+  opacity: 0.2;
 }
 
 

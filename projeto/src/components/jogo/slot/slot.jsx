@@ -1,15 +1,17 @@
 import { useState, useEffect } from "react";
 
 export default function Slot(props) {
-    const { isHovered, value, row, col } = props;
-    let initialPosition = -(row + 1) * 100
-    const [position, setPosition] = useState(0);
-    let tempoAnimacao = (row + 1) / 2 * 0.13
-    
+    const { isHovered, value, row, cor, image } = props;
+    let initialPosition = -(row + 1) * 100;
+    let tempoAnimacao = (row + 1) / 2 * 0.13;
+    const [position, setPosition] = useState(initialPosition);
+
     useEffect(() => {
-        setPosition(initialPosition);
         if (value) {
-            setPosition(0);
+            setPosition(initialPosition);
+            setTimeout(() => {
+                setPosition(0);
+            }, 10);
         }
     }, [value, initialPosition]);
 
@@ -20,7 +22,11 @@ export default function Slot(props) {
                     className={`disc ${value}`}
                     style={{
                         transition: `top ${tempoAnimacao}s linear`,
-                        top: `${position}%`
+                        top: `${position}%`,
+                        backgroundColor: cor,
+                        backgroundImage: image ? `url(${image})` : "none",
+                        backgroundSize: "100% 70%",
+                        backgroundPosition: "center"
                     }}
                 ></div>
             )}

@@ -54,7 +54,7 @@ function Jogo(props) {
     const { onMenuChange, jogadores } = props;
     let randomPlayer = Math.random() < 0.5 ? 0 : 1;
     const [hoveredIndex, setHoveredIndex] = useState([]);
-    const [currentPlayer, setCurrentPlayer] = useState(jogadores[randomPlayer].cor);
+    const [currentPlayer, setCurrentPlayer] = useState(jogadores[randomPlayer]);
     const [gameOver, setGameOver] = useState(false);
     const [topDisc, setTopDisc] = useState(0)
     const [discMatrix, setDiscMatrix] = useState(
@@ -67,7 +67,7 @@ function Jogo(props) {
             const newDiscMatrix = [...discMatrix];
             for (let i = 5; i >= 0; i--) {
                 if (newDiscMatrix[i][coluna] === null) {
-                    newDiscMatrix[i][coluna] = currentPlayer;
+                    newDiscMatrix[i][coluna] = currentPlayer.id;
                     break;
                 }
             }
@@ -78,7 +78,7 @@ function Jogo(props) {
                 setGameOver(true);
             }
 
-            setCurrentPlayer(currentPlayer === jogadores[0].cor ? jogadores[1].cor : jogadores[0].cor);
+            setCurrentPlayer(currentPlayer.id === jogadores[0].id ? jogadores[1] : jogadores[0]);
         }
     }
 
@@ -97,14 +97,15 @@ function Jogo(props) {
     }
 
     return (
-        <div className={"container-jogo"}>
+        <div className={"container-jogo"} style={{ backgroundColor: currentPlayer.cor2 + "FF" }}>
             <MenuPlayer jogador = {jogadores[0]}/>
             <div className="container-tabuleiro">
                 { !gameOver && 
                     <div className="disc-container">
-                        <div className = {currentPlayer} 
+                        <div
                             style={{
-                            left: `${topDisc * 14.05}%`
+                            left: `${topDisc * 14.05}%`,
+                            background: currentPlayer.cor2,
                         }}
                         ></div>
                     </div>
@@ -115,13 +116,24 @@ function Jogo(props) {
                         {Array.from({ length: 6 }).map((_, row) => // linhas
                             Array.from({ length: 7 }).map((_, col) => { // colunas
                                 const index = row * 7 + col;
+                                const value = discMatrix[row][col];
                                 return (
                                     <Slot
                                         key={index}
                                         isHovered={hoveredIndex.includes(index)}
-                                        value={discMatrix[row][col]}
+                                        value={value}
                                         row={row}
                                         col={col}
+                                        cor={
+                                            value
+                                                ? jogadores.find(j => j.id === value)?.cor
+                                                : undefined
+                                        }
+                                        image={
+                                            value
+                                                ? jogadores.find(j => j.id === value)?.image
+                                                : undefined
+                                        }
                                     />
                                 );
                             })
