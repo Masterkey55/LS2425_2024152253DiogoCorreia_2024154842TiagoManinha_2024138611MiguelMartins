@@ -20,8 +20,6 @@ function App() {
     switch (currentMenu) {
       case "inicio":
         return <Inicio onMenuChange={handleMenuChange} />;
-      case "ranking":
-         return <Menuendgame onMenuChange={handleMenuChange} />;
       case "jogador":
         return <Startgame onMenuChange={handleMenuChange} />;
       case "jogo":

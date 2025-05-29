@@ -8,8 +8,7 @@ import imagemRanking from "../../assets/img/ranking.svg";
 function Inicio(props) {  
     let modosDeJogo = [
         { nome: "computador", cor: "amarelo", imagem: imagemComputador },
-        { nome: "jogador", cor: "vermelho", imagem: imagemJogador },
-        { nome: "ranking", cor: "azul", imagem: imagemRanking }
+        { nome: "jogador", cor: "vermelho", imagem: imagemJogador }
     ];
 
     return (

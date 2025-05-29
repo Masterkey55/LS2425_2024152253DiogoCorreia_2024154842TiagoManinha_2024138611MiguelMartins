@@ -14,6 +14,16 @@ function checkIfColunaVazia(coluna, discMatrix) {
     return false;
 }
 
+function numerosEspeciais() {
+    const numeros = [];
+    while (numeros.length < 5) {
+        const num = Math.floor((Math.random() * 42)+1);
+        if (!numeros.includes(num)) 
+            numeros.push(num);
+    }
+    return numeros;
+}
+
 function checkIfVitoria(discMatrix) {
     for (let row = 0; row < 6; row++) {
         for (let col = 0; col < 7; col++) {
@@ -58,10 +68,12 @@ function Jogo(props) {
     const [gameOver, setGameOver] = useState(false);
     const [topDisc, setTopDisc] = useState(0)
     const [discMatrix, setDiscMatrix] = useState(
-                Array.from({ length: 6 }, () => Array(7).fill(null))
-            );
-            
+        Array.from({ length: 6 }, () => Array(7).fill(null))
+    );
+    const [tab_random5, setTab_random5] = useState(numerosEspeciais);
 
+    
+    
     const handleClick = (coluna) => {
         if (checkIfColunaVazia(coluna, discMatrix) && !gameOver) {
             const newDiscMatrix = [...discMatrix];
@@ -94,6 +106,7 @@ function Jogo(props) {
     const restartgame = ()=> {
             setDiscMatrix(Array.from({ length: 6 }, () => Array(7).fill(null)));
             setGameOver(false);
+            setTab_random5(numerosEspeciais());
     }
 
     return (
@@ -113,10 +126,12 @@ function Jogo(props) {
                 <div className="tabuleiro">
                     <img src={imagemTabuleiro} alt="Tabuleiro" className="tabuleiro-image" />
                     <div className="slots-container">
-                        {Array.from({ length: 6 }).map((_, row) => // linhas
-                            Array.from({ length: 7 }).map((_, col) => { // colunas
+                        {Array.from({ length: 6 }).map((_, row) =>
+                            Array.from({ length: 7 }).map((_, col) => {
                                 const index = row * 7 + col;
                                 const value = discMatrix[row][col];
+                                const especial = tab_random5.includes(index);
+
                                 return (
                                     <Slot
                                         key={index}
@@ -124,16 +139,9 @@ function Jogo(props) {
                                         value={value}
                                         row={row}
                                         col={col}
-                                        cor={
-                                            value
-                                                ? jogadores.find(j => j.id === value)?.cor
-                                                : undefined
-                                        }
-                                        image={
-                                            value
-                                                ? jogadores.find(j => j.id === value)?.image
-                                                : undefined
-                                        }
+                                        cor={value ? jogadores.find(j => j.id === value)?.cor : undefined}
+                                        image={value ? jogadores.find(j => j.id === value)?.image : undefined}
+                                        slotEspecial={especial}
                                     />
                                 );
                             })
