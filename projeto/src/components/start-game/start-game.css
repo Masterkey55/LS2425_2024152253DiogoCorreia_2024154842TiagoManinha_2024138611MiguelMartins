@@ -23,6 +23,13 @@ form {
     margin-top: auto;
 }
 
+
+@media screen and (max-width: 1120px) {
+    .formulario {
+        height: 67%;
+    }
+}
+
 .container-opcoes button{
     font-family: "Jersey 10", sans-serif;
     padding: 1vh 12vh;

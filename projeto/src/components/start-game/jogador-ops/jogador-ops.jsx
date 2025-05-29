@@ -32,9 +32,6 @@ function Jogadorops({ jogador, coresEscolhidas, onChange }) {
       <div className = "team-container">
         {equipas.map((equipa) => {
           const corJaEscolhida = Object.values(coresEscolhidas).includes(equipa.id) && jogador.equipa !== equipa.id;
-          console.log(corJaEscolhida)
-          console.log(coresEscolhidas)
-
           return (
             <div key={equipa.id} className={`team${jogador.equipa === equipa.id ? " selected" : ""}`} 
             onClick={() => {

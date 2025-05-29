@@ -12,6 +12,13 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
+@media screen and (max-width: 1120px) {
+    .container-jogador {
+        width: 35%;
+    }
+  
+}
+
 .container-jogador:last-of-type{
     margin-left: 0.5%;
     margin-right: auto;

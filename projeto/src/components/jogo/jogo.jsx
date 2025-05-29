@@ -17,7 +17,7 @@ function checkIfColunaVazia(coluna, discMatrix) {
 function numerosEspeciais() {
     const numeros = [];
     while (numeros.length < 5) {
-        const num = Math.floor((Math.random() * 42)+1);
+        const num = Math.floor((Math.random() * 42));
         if (!numeros.includes(num)) 
             numeros.push(num);
     }
@@ -28,33 +28,30 @@ function checkIfVitoria(discMatrix) {
     for (let row = 0; row < 6; row++) {
         for (let col = 0; col < 7; col++) {
             if (discMatrix[row][col] !== null) {
+                const player = discMatrix[row][col];
                 if (col + 3 < 7 &&
-                    discMatrix[row][col] === discMatrix[row][col + 1] &&
-                    discMatrix[row][col] === discMatrix[row][col + 2] &&
-                    discMatrix[row][col] === discMatrix[row][col + 3]) {
-                    return true;
-                }
-
+                    player === discMatrix[row][col + 1] &&
+                    player === discMatrix[row][col + 2] &&
+                    player === discMatrix[row][col + 3])
+                    return [row * 7 + col, row * 7 + col + 1, row * 7 + col + 2, row * 7 + col + 3];
+                
                 if (row + 3 < 6 &&
-                    discMatrix[row][col] === discMatrix[row + 1][col] &&
-                    discMatrix[row][col] === discMatrix[row + 2][col] &&
-                    discMatrix[row][col] === discMatrix[row + 3][col]) {
-                    return true;
-                }
-                // diagonal /
+                    player === discMatrix[row + 1][col] &&
+                    player === discMatrix[row + 2][col] &&
+                    player === discMatrix[row + 3][col])
+                    return [row * 7 + col, (row + 1) * 7 + col, (row + 2) * 7 + col, (row + 3) * 7 + col];
+                
                 if (row - 3 >= 0 && col + 3 < 7 &&
-                    discMatrix[row][col] === discMatrix[row - 1][col + 1] &&
-                    discMatrix[row][col] === discMatrix[row - 2][col + 2] &&
-                    discMatrix[row][col] === discMatrix[row - 3][col + 3]) {
-                    return true;
-                }
-                // diagonal \
+                    player === discMatrix[row - 1][col + 1] &&
+                    player === discMatrix[row - 2][col + 2] &&
+                    player === discMatrix[row - 3][col + 3])
+                    return [row * 7 + col, (row - 1) * 7 + col + 1, (row - 2) * 7 + col + 2, (row - 3) * 7 + col + 3];
+
                 if (row + 3 < 6 && col + 3 < 7 &&
-                    discMatrix[row][col] === discMatrix[row + 1][col + 1] &&
-                    discMatrix[row][col] === discMatrix[row + 2][col + 2] &&
-                    discMatrix[row][col] === discMatrix[row + 3][col + 3]) {
-                    return true;
-                }
+                    player === discMatrix[row + 1][col + 1] &&
+                    player === discMatrix[row + 2][col + 2] &&
+                    player === discMatrix[row + 3][col + 3])
+                    return [row * 7 + col, (row + 1) * 7 + col + 1, (row + 2) * 7 + col + 2, (row + 3) * 7 + col + 3];
             }
         }
     }
@@ -65,15 +62,27 @@ function Jogo(props) {
     let randomPlayer = Math.random() < 0.5 ? 0 : 1;
     const [hoveredIndex, setHoveredIndex] = useState([]);
     const [currentPlayer, setCurrentPlayer] = useState(jogadores[randomPlayer]);
+    const [showGameover, setShowGameover] = useState(false);
     const [gameOver, setGameOver] = useState(false);
     const [topDisc, setTopDisc] = useState(0)
+    const [tab_random5, setTab_random5] = useState(numerosEspeciais);
+    const [winningSlots, setWinningSlots] = useState([]);
     const [discMatrix, setDiscMatrix] = useState(
         Array.from({ length: 6 }, () => Array(7).fill(null))
     );
-    const [tab_random5, setTab_random5] = useState(numerosEspeciais);
 
-    
-    
+    const handleGameOver = (bool) => {
+        setGameOver(bool);
+        if (bool) {
+            setTimeout(() => {
+                setShowGameover(true);
+            }, 6000);
+        } else {
+            setWinningSlots([]);
+            setShowGameover(false);
+        }
+    };
+
     const handleClick = (coluna) => {
         if (checkIfColunaVazia(coluna, discMatrix) && !gameOver) {
             const newDiscMatrix = [...discMatrix];
@@ -87,9 +96,12 @@ function Jogo(props) {
             }
             setDiscMatrix(newDiscMatrix);
 
-            if (checkIfVitoria(discMatrix) == true) {
+            const result = checkIfVitoria(newDiscMatrix);
+            if (result) {
+                setWinningSlots(result);
                 setHoveredIndex([]);
-                setGameOver(true);
+                handleGameOver(true);
+                return
             }
 
             const indiceslot = rowjogada * 7 + coluna;
@@ -97,9 +109,7 @@ function Jogo(props) {
 
             if(!cainaespecial){
                 setCurrentPlayer(currentPlayer.id === jogadores[0].id ? jogadores[1] : jogadores[0]);
-                console.log("slot normal jogado");
             } else {
-                console.log("slot especial jogado");
                 alert("Jogou num slot especial, Jogue de novo!");
             }
         }
@@ -115,23 +125,28 @@ function Jogo(props) {
     };
 
     const restartgame = ()=> {
-            setDiscMatrix(Array.from({ length: 6 }, () => Array(7).fill(null)));
-            setGameOver(false);
-            setTab_random5(numerosEspeciais());
+        let randomPlayer = Math.random() < 0.5 ? 0 : 1;
+
+        setDiscMatrix(Array.from({ length: 6 }, () => Array(7).fill(null)));
+        setCurrentPlayer(jogadores[randomPlayer]);
+        handleGameOver(false);
+        setTab_random5(numerosEspeciais());
     }
 
     return (
-        <div className={"container-jogo"} style={{ backgroundColor: currentPlayer.cor2 + "8A" }}>
+        <div className={"container-jogo"}>{/*style={{ backgroundColor: currentPlayer.cor2 + "8A" }}*/}
             <MenuPlayer jogador = {jogadores[0]}/>
             <div className="container-tabuleiro">
                 { !gameOver && 
                     <div className="disc-container">
-                        <div
-                            style={{
-                            left: `${topDisc * 14.05}%`,
-                            background: currentPlayer.cor,
-                        }}
-                        ></div>
+                        <div style={{
+                            left: `${topDisc * 14.05}%`, 
+                            backgroundColor: currentPlayer.cor,
+                            backgroundImage: `url(${currentPlayer.image})`,
+                            backgroundPosition: "100%",
+                            backgroundSize: "100% 75%",
+                        }}>
+                        </div>
                     </div>
                 }
                 <div className="tabuleiro">
@@ -148,6 +163,7 @@ function Jogo(props) {
                                         key={index}
                                         isHovered={hoveredIndex.includes(index)}
                                         value={value}
+                                        isWinner={winningSlots.includes(index)}
                                         row={row}
                                         col={col}
                                         cor={value ? jogadores.find(j => j.id === value)?.cor : undefined}
@@ -167,7 +183,7 @@ function Jogo(props) {
             </div>
             <MenuPlayer jogador = {jogadores[1]}/>
                         
-            {gameOver &&
+            {showGameover &&
                 <Menuendgame vencedor = {currentPlayer.id === jogadores[0].id ? jogadores[1].nome : jogadores[0].nome} restart = {restartgame} inicio = {onMenuChange}/>
             }
 

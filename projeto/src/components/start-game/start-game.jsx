@@ -30,7 +30,7 @@ function Startgame({ onMenuChange }) {
 
       let algumEmBranco = false;
       for (let i = 0; i < jogadores.length; i++) {
-          if (jogadores[i].nome.trim() === "" || jogadores[i].id === "") {
+          if (jogadores[i].nome.trim() === "" || jogadores[i].equipa === "") {
               algumEmBranco = true;
               break;
           }

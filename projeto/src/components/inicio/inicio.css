@@ -46,16 +46,14 @@ h1 {
 
 .botao:hover {
     cursor: pointer;
-    transform: scale(1.04);
-    background-color: #f7f7f7;
 }
 
 .container-botoes .amarelo:hover {
-     box-shadow: 0 0 50px 10px #fff200,  0 4px 24px #0003;
+    box-shadow: 0 0 50px #fff200;
 }
 
 .container-botoes .vermelho:hover {
-    box-shadow: 0 0 50px 10px #ff3c31cc, 0 4px 24px #0003;
+    box-shadow: 0 0 40px #ff3c31;
 }
 
 .botao img {
