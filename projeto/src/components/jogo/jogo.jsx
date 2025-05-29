@@ -76,7 +76,7 @@ function Jogo(props) {
         if (bool) {
             setTimeout(() => {
                 setShowGameover(true);
-            }, 6000);
+            }, 3200);
         } else {
             setWinningSlots([]);
             setShowGameover(false);
