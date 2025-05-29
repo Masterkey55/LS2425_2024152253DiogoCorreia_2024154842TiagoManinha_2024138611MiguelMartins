@@ -65,6 +65,7 @@ function Jogo(props) {
     const [showGameover, setShowGameover] = useState(false);
     const [gameOver, setGameOver] = useState(false);
     const [topDisc, setTopDisc] = useState(0)
+    const [waitJogada, setWaitJogada] = useState(false);
     const [tab_random5, setTab_random5] = useState(numerosEspeciais);
     const [winningSlots, setWinningSlots] = useState([]);
     const [discMatrix, setDiscMatrix] = useState(
@@ -87,6 +88,7 @@ function Jogo(props) {
         if (checkIfColunaVazia(coluna, discMatrix) && !gameOver) {
             const newDiscMatrix = [...discMatrix];
             let rowjogada = -1;
+            setWaitJogada(true);
             for (let i = 5; i >= 0; i--) {
                 if (newDiscMatrix[i][coluna] === null) {
                     newDiscMatrix[i][coluna] = currentPlayer.id;
@@ -94,6 +96,10 @@ function Jogo(props) {
                     break;
                 }
             }
+            setTimeout(() => {
+                setWaitJogada(false);
+            }, 1000);
+
             setDiscMatrix(newDiscMatrix);
 
             const result = checkIfVitoria(newDiscMatrix);
@@ -104,6 +110,11 @@ function Jogo(props) {
                 return
             }
 
+            const checkEmpate = newDiscMatrix.flat().every(slot => slot !== null); // colocar a matriz como array unidimensional e verificar se todos os slots estão preenchidos
+
+            if (checkEmpate) {
+                handleGameOver(true);
+            }
             const indiceslot = rowjogada * 7 + coluna;
             const cainaespecial = tab_random5.includes(indiceslot);
 
@@ -137,7 +148,7 @@ function Jogo(props) {
         <div className={"container-jogo"}>{/*style={{ backgroundColor: currentPlayer.cor2 + "8A" }}*/}
             <MenuPlayer jogador = {jogadores[0]}/>
             <div className="container-tabuleiro">
-                { !gameOver && 
+                { !gameOver && !waitJogada &&
                     <div className="disc-container">
                         <div style={{
                             left: `${topDisc * 14.05}%`, 
@@ -176,7 +187,7 @@ function Jogo(props) {
                     </div>
                     <div className = "colunas">
                         {!gameOver && Array.from({ length: 7 }).map((_, i) => (
-                            <div key={i} className="coluna" onClick={() => handleClick(i)} onMouseEnter={() => handleHover(i)} onMouseLeave={() => setHoveredIndex([])}></div>
+                            <div key={i} className="coluna" onClick={() => !waitJogada && handleClick(i)} onMouseEnter={() => handleHover(i)} onMouseLeave={() => setHoveredIndex([])}></div>
                         ))}
                     </div>
                 </div>
