@@ -14,12 +14,8 @@ function Menuendgame(props){
                     <p className="playerwin">
                         {vencedor}
                     </p>
-                    <p className="ganha">
-                        GANHA!!!
-                    </p>
-                    <div className="linha">
-                        
-                    </div>
+                    <p className="ganha">🏆 Ganhou o jogo! 🏆</p>
+                    <div className="linha"></div>
                     <button onClick={()=>restart()}>
                         Jogar outra vez
                         <img src=""/>

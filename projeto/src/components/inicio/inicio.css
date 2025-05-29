@@ -38,18 +38,35 @@ h1 {
     width: 240px;
     height: 240px;
     border: none;
-    border-radius: 10px;
+    border-radius: 18px;
+    background: #fff;
+    box-shadow: 0 4px 24px #0002;
+    transition: all 0.2s;
 }
 
 .botao:hover {
     cursor: pointer;
-    transition: all 0.2s ease-in-out;
+    transform: scale(1.04);
+    background-color: #f7f7f7;
+}
+
+.container-botoes .amarelo:hover {
+     box-shadow: 0 0 50px 10px #fff200,  0 4px 24px #0003;
+}
+
+.container-botoes .vermelho:hover {
+    box-shadow: 0 0 50px 10px #ff3c31cc, 0 4px 24px #0003;
 }
 
 .botao img {
     position: relative;
     width: 140px;
     height: 140px;
+    margin-bottom: 10px;
+}
+
+.botao:hover img {
+    filter: drop-shadow(0 4px 16px #0004);
 }
 
 .botao div {
@@ -58,17 +75,5 @@ h1 {
     line-height: 0.8em;
     text-transform: uppercase;
     font-size: 2.5em;
+    color: #222;
 }
-
-.container-botoes .amarelo:hover {
-    box-shadow: 0 0 50px #fff200;
-}
-
-.container-botoes .azul:hover {
-    box-shadow: 0 0 40px #319bff;
-}
-
-.container-botoes .vermelho:hover {
-    box-shadow: 0 0 40px #ff3c31;
-}
-

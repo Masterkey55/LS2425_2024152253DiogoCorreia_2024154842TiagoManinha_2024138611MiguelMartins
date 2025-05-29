@@ -77,9 +77,11 @@ function Jogo(props) {
     const handleClick = (coluna) => {
         if (checkIfColunaVazia(coluna, discMatrix) && !gameOver) {
             const newDiscMatrix = [...discMatrix];
+            let rowjogada = -1;
             for (let i = 5; i >= 0; i--) {
                 if (newDiscMatrix[i][coluna] === null) {
                     newDiscMatrix[i][coluna] = currentPlayer.id;
+                    rowjogada = i;
                     break;
                 }
             }
@@ -90,7 +92,16 @@ function Jogo(props) {
                 setGameOver(true);
             }
 
-            setCurrentPlayer(currentPlayer.id === jogadores[0].id ? jogadores[1] : jogadores[0]);
+            const indiceslot = rowjogada * 7 + coluna;
+            const cainaespecial = tab_random5.includes(indiceslot);
+
+            if(!cainaespecial){
+                setCurrentPlayer(currentPlayer.id === jogadores[0].id ? jogadores[1] : jogadores[0]);
+                console.log("slot normal jogado");
+            } else {
+                console.log("slot especial jogado");
+                alert("Jogou num slot especial, Jogue de novo!");
+            }
         }
     }
 
@@ -110,7 +121,7 @@ function Jogo(props) {
     }
 
     return (
-        <div className={"container-jogo"} style={{ backgroundColor: currentPlayer.cor2 + "FF" }}>
+        <div className={"container-jogo"} style={{ backgroundColor: currentPlayer.cor2 + "8A" }}>
             <MenuPlayer jogador = {jogadores[0]}/>
             <div className="container-tabuleiro">
                 { !gameOver && 
@@ -118,7 +129,7 @@ function Jogo(props) {
                         <div
                             style={{
                             left: `${topDisc * 14.05}%`,
-                            background: currentPlayer.cor2,
+                            background: currentPlayer.cor,
                         }}
                         ></div>
                     </div>
@@ -157,7 +168,7 @@ function Jogo(props) {
             <MenuPlayer jogador = {jogadores[1]}/>
                         
             {gameOver &&
-                <Menuendgame vencedor = {currentPlayer === jogadores[0].cor ? jogadores[1].cor : jogadores[0].cor} restart = {restartgame} inicio = {onMenuChange}/>
+                <Menuendgame vencedor = {currentPlayer.id === jogadores[0].id ? jogadores[1].nome : jogadores[0].nome} restart = {restartgame} inicio = {onMenuChange}/>
             }
 
         </div>
