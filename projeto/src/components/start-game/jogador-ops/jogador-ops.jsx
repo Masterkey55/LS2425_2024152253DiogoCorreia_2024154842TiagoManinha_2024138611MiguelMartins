@@ -40,7 +40,7 @@ function Jogadorops({ jogador, coresEscolhidas, onChange, equipas, type }) {
           )
         })}
       </div>
-      <input maxLength={15} type="text" className="nome-jogador" placeholder="Nome do jogador" value={jogador.nome} onChange={(e) => onChange(jogador.id, "nome", e.target.value)}/>
+      <input maxLength={10} type="text" className="nome-jogador" placeholder="Nome do jogador" value={jogador.nome} onChange={(e) => onChange(jogador.id, "nome", e.target.value)}/>
     </div>
   );
 }

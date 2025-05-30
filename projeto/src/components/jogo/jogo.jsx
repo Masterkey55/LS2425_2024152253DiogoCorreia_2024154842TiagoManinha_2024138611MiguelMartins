@@ -5,6 +5,7 @@ import imagemTabuleiro from "../../assets/img/tabuleiro.png";
 import MenuPlayer from "./menu-player/menu-player.jsx";
 import Menuendgame from "./end-game/end-game.jsx";
 import { checkIfColunaVazia, checkIfVitoria, numerosEspeciais, verificaTabuleiroCheio, getRandomPlayer } from "./jogoFunctions.js";
+import Icons from "./icons/icons.jsx";
 
 function Jogo(props) {
     const { onMenuChange, jogadores, type } = props;
@@ -169,7 +170,11 @@ function Jogo(props) {
                     </div>
                 </div>
             </div>
+
+            <Icons restart = {restartgame} inicio = {onMenuChange} fimJogo={gameOver}/>
+
             <MenuPlayer passarJogador = {passarProximoJogador} jogador = {jogadores[1]} type = {type} currentPlayer={currentPlayer}/> 
+                        
             {showGameover &&
                 <Menuendgame ultimoPlayer = {currentPlayer.nome} restart = {restartgame} inicio = {onMenuChange}/>
             }

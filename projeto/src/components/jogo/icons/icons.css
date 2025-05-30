@@ -1,0 +1,30 @@
+.container-icons {
+    position: absolute;
+    top: 4%;      /* ou 0, se quiseres mesmo colado ao topo */
+    right: 2%;
+    display: flex;
+    gap: 20px;
+    flex-direction: row-reverse;
+}
+
+.container-icons div {
+    position: relative;
+    width: 5.5vh;
+    height: 5.5vh;
+    border: 1px solid #f0f0f0;;
+    border-radius: 10px;
+    cursor: pointer;
+    background-color: white;
+    display: flex;
+}
+
+img {
+    position: relative;
+    width: 76%;
+    margin: auto;
+}
+
+.container-icons div:hover {
+    background-color: #f0f0f0;
+    border: 1px solid #b6b6b6;
+}
