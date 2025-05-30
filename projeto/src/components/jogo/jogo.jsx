@@ -4,13 +4,12 @@ import Slot from "./slot/slot.jsx";
 import imagemTabuleiro from "../../assets/img/tabuleiro.png";
 import MenuPlayer from "./menu-player/menu-player.jsx";
 import Menuendgame from "./end-game/end-game.jsx";
-import { checkIfColunaVazia, checkIfVitoria, numerosEspeciais } from "./jogoFunctions.js";
+import { checkIfColunaVazia, checkIfVitoria, numerosEspeciais, verificaTabuleiroCheio, getRandomPlayer } from "./jogoFunctions.js";
 
 function Jogo(props) {
     const { onMenuChange, jogadores, type } = props;
-    let randomPlayer = Math.random() < 0.5 ? 0 : 1;
     const [hoveredIndex, setHoveredIndex] = useState([]);
-    const [currentPlayer, setCurrentPlayer] = useState(jogadores[randomPlayer]);
+    const [currentPlayer, setCurrentPlayer] = useState(getRandomPlayer(jogadores));
     const [showGameover, setShowGameover] = useState(false);
     const [gameOver, setGameOver] = useState(false);
     const [topDisc, setTopDisc] = useState(0)
@@ -22,14 +21,14 @@ function Jogo(props) {
     );
 
     useEffect(() => {
-        if (type === "computador" && currentPlayer.id === jogadores[1].id && !verificaTabuleiroCheio() && !gameOver) {
+        if (type === "computador" && currentPlayer.id === jogadores[1].id && !verificaTabuleiroCheio(discMatrix) && !gameOver) {
             setTimeout(() => botPlay(discMatrix), 1500);
         }
     
     }, [currentPlayer])
 
     const botPlay = (matrix) => {
-         const validCols = [];
+        const validCols = [];
         for (let col = 0; col < 7; col++) {
             if (checkIfColunaVazia(col, matrix)) validCols.push(col);
         }
@@ -37,10 +36,6 @@ function Jogo(props) {
         const col = validCols[Math.floor(Math.random() * validCols.length)];
         handleClick(col, true); 
     };
-
-    const verificaTabuleiroCheio = () => {
-        return discMatrix.flat().every(slot => slot !== null); // colocar a matriz como array unidimensional e verificar se todos os slots estão preenchidos
-    }
 
     const handleGameOver = (bool) => {
         setGameOver(bool);
@@ -83,7 +78,7 @@ function Jogo(props) {
                 return
             }
 
-            const checkEmpate = verificaTabuleiroCheio()
+            const checkEmpate = verificaTabuleiroCheio(discMatrix)
 
             if (checkEmpate) {
                 handleGameOver(true);
@@ -115,17 +110,20 @@ function Jogo(props) {
     };
 
     const restartgame = ()=> {
-        let randomPlayer = Math.random() < 0.5 ? 0 : 1;
-
         setDiscMatrix(Array.from({ length: 6 }, () => Array(7).fill(null)));
-        setCurrentPlayer(jogadores[randomPlayer]);
+        setCurrentPlayer(getRandomPlayer(jogadores));
         handleGameOver(false);
         setTab_random5(numerosEspeciais());
     }
 
+    const passarProximoJogador = () => {
+        const nextPlayer = currentPlayer.id === jogadores[0].id ? jogadores[1] : jogadores[0];
+        setCurrentPlayer(nextPlayer);
+    }
+
     return (
         <div className={"container-jogo"}>{/*style={{ backgroundColor: currentPlayer.cor2 + "8A" }}*/}
-            <MenuPlayer jogador = {jogadores[0]}/>
+            <MenuPlayer passarJogador = {passarProximoJogador} jogador = {jogadores[0]} currentPlayer={currentPlayer}/>
             <div className="container-tabuleiro">
                 { !gameOver && !waitJogada && ((type !== "computador") || (type === "computador" && currentPlayer.id === jogadores[0].id)) &&
                     <div className="disc-container">
@@ -171,8 +169,7 @@ function Jogo(props) {
                     </div>
                 </div>
             </div>
-            <MenuPlayer jogador = {jogadores[1]}/>
-                        
+            <MenuPlayer passarJogador = {passarProximoJogador} jogador = {jogadores[1]} type = {type} currentPlayer={currentPlayer}/> 
             {showGameover &&
                 <Menuendgame ultimoPlayer = {currentPlayer.nome} restart = {restartgame} inicio = {onMenuChange}/>
             }

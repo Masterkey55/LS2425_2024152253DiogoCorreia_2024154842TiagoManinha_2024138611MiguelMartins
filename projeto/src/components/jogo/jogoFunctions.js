@@ -49,3 +49,12 @@ export function checkIfVitoria(discMatrix) {
         }
     }
 }
+
+export function verificaTabuleiroCheio(matrix) {
+    return matrix.flat().every(slot => slot !== null); // colocar a matriz como array unidimensional e verificar se todos os slots estão preenchidos
+}
+
+export function getRandomPlayer(jogadores) {
+    const randomIndex = Math.floor(Math.random() * jogadores.length);
+    return jogadores[randomIndex];
+}

@@ -71,11 +71,14 @@ function Startgame({ onMenuChange, type }) {
           const equipaRandom = disponiveis[Math.floor(Math.random() * disponiveis.length)];
           jogadores[i] = { ...jogadores[i], equipa: equipaRandom.id, ...equipaRandom };
         }
-      } else if (jogadores[i].nome.trim() === "" || jogadores[i].equipa === "") {
+      }
+
+      if (jogadores[i].nome.trim() === "" || jogadores[i].equipa === "") {
         algumEmBranco = true;
         break;
       }
     }
+    console.log(jogadores);
 
     if (algumEmBranco) {
       alert("Todos os jogadores devem preencher nome e escolher uma cor.");

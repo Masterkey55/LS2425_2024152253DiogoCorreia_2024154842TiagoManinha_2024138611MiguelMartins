@@ -68,6 +68,7 @@
   position: relative;
   padding: 0.2vh 1vh;
   border-radius: 1vh;
+  background-color: rgba(235, 235, 235, 1);
   color: rgba(0, 0, 0, 0.6);
   margin: auto;
   font-size: 5vh;
