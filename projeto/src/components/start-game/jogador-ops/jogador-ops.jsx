@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./jogador-ops.css";
 
-function Jogadorops({ jogador, coresEscolhidas, onChange, equipas }) {
+function Jogadorops({ jogador, coresEscolhidas, onChange, equipas, type }) {
   const [aleatoria, setAleatoria] = useState(false);
 
   useEffect(() => { 
@@ -9,7 +9,7 @@ function Jogadorops({ jogador, coresEscolhidas, onChange, equipas }) {
   }, [aleatoria]);
 
   return (
-    <div className="container-jogador">
+    <div className="container-jogador" style = { (type === "computador") ? { marginLeft: "auto"} : undefined}>
       <h1>JOGADOR {jogador.id}</h1>
       <div className="aleatoria-opcao">
         <h2>EQUIPA ALEATÓRIA</h2>
@@ -35,7 +35,7 @@ function Jogadorops({ jogador, coresEscolhidas, onChange, equipas }) {
               opacity: bloqueada ? 0.5 : 1
             }}>
               <img src={equipa.image} alt={equipa.escola} />
-              <span className={"team-name"} style={{color: equipa.cor2}}>{equipa.escola}</span>
+              <span className={"team-name"}>{equipa.escola}</span>
             </div>
           )
         })}

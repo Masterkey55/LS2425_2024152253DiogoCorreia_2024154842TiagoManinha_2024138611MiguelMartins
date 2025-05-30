@@ -27,7 +27,7 @@ export default function Slot(props) {
                         top: `${position}%`,
                         backgroundColor: cor,
                         backgroundImage: image ? `url(${image})` : "none",
-                        backgroundSize: "100% 70%",
+                        backgroundSize: "77% 77%",
                         backgroundPosition: "center"
                     }}
                 ></div>

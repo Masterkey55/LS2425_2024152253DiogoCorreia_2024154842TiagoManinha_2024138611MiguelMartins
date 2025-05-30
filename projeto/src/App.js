@@ -8,22 +8,29 @@ import "./index.css";
 function App() {
   const [currentMenu, setCurrentMenu] = useState("inicio");
   const [jogoProps, setJogoProps] = useState({});
+  const [jogoType, setJogoType] = useState("");
 
-  const handleMenuChange = (menu, objeto) => {
+  const handleMenuChange = (menu, objeto, jogoType) => {
     if (menu === "jogo") {
       setJogoProps(objeto || {});
+      setJogoType(jogoType || "");
+    } else if (menu === "computado") {
+      setJogoType("computador");
     }
+    
     setCurrentMenu(menu);
   };
-
+  
   const renderMenu = () => {
     switch (currentMenu) {
       case "inicio":
         return <Inicio onMenuChange={handleMenuChange} />;
       case "jogador":
         return <Startgame onMenuChange={handleMenuChange} />;
+      case "computador":
+        return <Startgame type = "computador" onMenuChange={handleMenuChange} />;
       case "jogo":
-        return <Jogo onMenuChange={handleMenuChange} jogadores={jogoProps} />;
+         return <Jogo onMenuChange={handleMenuChange} jogadores={jogoProps} type={jogoType} />;
       default:
         return <Inicio onMenuChange={handleMenuChange} />;
     }

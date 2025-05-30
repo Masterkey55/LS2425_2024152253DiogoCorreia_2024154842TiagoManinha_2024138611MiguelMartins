@@ -1,64 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./jogo.css";
 import Slot from "./slot/slot.jsx";
 import imagemTabuleiro from "../../assets/img/tabuleiro.png";
 import MenuPlayer from "./menu-player/menu-player.jsx";
 import Menuendgame from "./end-game/end-game.jsx";
-
-function checkIfColunaVazia(coluna, discMatrix) {
-    for (let i = 0; i < 6; i++) {
-        if (discMatrix[i][coluna] === null) {
-            return true;
-        }
-    }
-    return false;
-}
-
-function numerosEspeciais() {
-    const numeros = [];
-    while (numeros.length < 5) {
-        const num = Math.floor((Math.random() * 42));
-        if (!numeros.includes(num)) 
-            numeros.push(num);
-    }
-    return numeros;
-}
-
-function checkIfVitoria(discMatrix) {
-    for (let row = 0; row < 6; row++) {
-        for (let col = 0; col < 7; col++) {
-            if (discMatrix[row][col] !== null) {
-                const player = discMatrix[row][col];
-                if (col + 3 < 7 &&
-                    player === discMatrix[row][col + 1] &&
-                    player === discMatrix[row][col + 2] &&
-                    player === discMatrix[row][col + 3])
-                    return [row * 7 + col, row * 7 + col + 1, row * 7 + col + 2, row * 7 + col + 3];
-                
-                if (row + 3 < 6 &&
-                    player === discMatrix[row + 1][col] &&
-                    player === discMatrix[row + 2][col] &&
-                    player === discMatrix[row + 3][col])
-                    return [row * 7 + col, (row + 1) * 7 + col, (row + 2) * 7 + col, (row + 3) * 7 + col];
-                
-                if (row - 3 >= 0 && col + 3 < 7 &&
-                    player === discMatrix[row - 1][col + 1] &&
-                    player === discMatrix[row - 2][col + 2] &&
-                    player === discMatrix[row - 3][col + 3])
-                    return [row * 7 + col, (row - 1) * 7 + col + 1, (row - 2) * 7 + col + 2, (row - 3) * 7 + col + 3];
-
-                if (row + 3 < 6 && col + 3 < 7 &&
-                    player === discMatrix[row + 1][col + 1] &&
-                    player === discMatrix[row + 2][col + 2] &&
-                    player === discMatrix[row + 3][col + 3])
-                    return [row * 7 + col, (row + 1) * 7 + col + 1, (row + 2) * 7 + col + 2, (row + 3) * 7 + col + 3];
-            }
-        }
-    }
-}
+import { checkIfColunaVazia, checkIfVitoria, numerosEspeciais } from "./jogoFunctions.js";
 
 function Jogo(props) {
-    const { onMenuChange, jogadores } = props;
+    const { onMenuChange, jogadores, type } = props;
     let randomPlayer = Math.random() < 0.5 ? 0 : 1;
     const [hoveredIndex, setHoveredIndex] = useState([]);
     const [currentPlayer, setCurrentPlayer] = useState(jogadores[randomPlayer]);
@@ -66,11 +15,32 @@ function Jogo(props) {
     const [gameOver, setGameOver] = useState(false);
     const [topDisc, setTopDisc] = useState(0)
     const [waitJogada, setWaitJogada] = useState(false);
-    const [tab_random5, setTab_random5] = useState(numerosEspeciais);
+    const [tab_random5, setTab_random5] = useState(numerosEspeciais());
     const [winningSlots, setWinningSlots] = useState([]);
     const [discMatrix, setDiscMatrix] = useState(
         Array.from({ length: 6 }, () => Array(7).fill(null))
     );
+
+    useEffect(() => {
+        if (type === "computador" && currentPlayer.id === jogadores[1].id && !verificaTabuleiroCheio() && !gameOver) {
+            setTimeout(() => botPlay(discMatrix), 1500);
+        }
+    
+    }, [currentPlayer])
+
+    const botPlay = (matrix) => {
+         const validCols = [];
+        for (let col = 0; col < 7; col++) {
+            if (checkIfColunaVazia(col, matrix)) validCols.push(col);
+        }
+        if (validCols.length === 0) return;
+        const col = validCols[Math.floor(Math.random() * validCols.length)];
+        handleClick(col, true); 
+    };
+
+    const verificaTabuleiroCheio = () => {
+        return discMatrix.flat().every(slot => slot !== null); // colocar a matriz como array unidimensional e verificar se todos os slots estão preenchidos
+    }
 
     const handleGameOver = (bool) => {
         setGameOver(bool);
@@ -84,7 +54,10 @@ function Jogo(props) {
         }
     };
 
-    const handleClick = (coluna) => {
+     const handleClick = (coluna, isBot = false) => {
+        if (type === "computador" && isBot && currentPlayer.id !== jogadores[1].id) return;
+        if (type === "computador" && !isBot && currentPlayer.id !== jogadores[0].id) return;
+
         if (checkIfColunaVazia(coluna, discMatrix) && !gameOver) {
             const newDiscMatrix = [...discMatrix];
             let rowjogada = -1;
@@ -110,18 +83,24 @@ function Jogo(props) {
                 return
             }
 
-            const checkEmpate = newDiscMatrix.flat().every(slot => slot !== null); // colocar a matriz como array unidimensional e verificar se todos os slots estão preenchidos
+            const checkEmpate = verificaTabuleiroCheio()
 
             if (checkEmpate) {
                 handleGameOver(true);
+                return;
             }
+
             const indiceslot = rowjogada * 7 + coluna;
             const cainaespecial = tab_random5.includes(indiceslot);
-
+            console.log("Caiu em slot especial: ", cainaespecial);
             if(!cainaespecial){
-                setCurrentPlayer(currentPlayer.id === jogadores[0].id ? jogadores[1] : jogadores[0]);
+                const nextPlayer = currentPlayer.id === jogadores[0].id ? jogadores[1] : jogadores[0];
+                setCurrentPlayer(nextPlayer);
             } else {
-                alert("Jogou num slot especial, Jogue de novo!");
+                if (type === "computador" && currentPlayer.id === jogadores[1].id) {
+                    setTimeout(() => botPlay(newDiscMatrix), 1500);
+                }
+                console.log("Jogou num slot especial, Jogue de novo!");
             }
         }
     }
@@ -148,14 +127,14 @@ function Jogo(props) {
         <div className={"container-jogo"}>{/*style={{ backgroundColor: currentPlayer.cor2 + "8A" }}*/}
             <MenuPlayer jogador = {jogadores[0]}/>
             <div className="container-tabuleiro">
-                { !gameOver && !waitJogada &&
+                { !gameOver && !waitJogada && ((type !== "computador") || (type === "computador" && currentPlayer.id === jogadores[0].id)) &&
                     <div className="disc-container">
                         <div style={{
                             left: `${topDisc * 14.05}%`, 
                             backgroundColor: currentPlayer.cor,
                             backgroundImage: `url(${currentPlayer.image})`,
-                            backgroundPosition: "100%",
-                            backgroundSize: "100% 75%",
+                            backgroundPosition: "center center",
+                            backgroundSize: "80% 77%",
                         }}>
                         </div>
                     </div>
@@ -195,7 +174,7 @@ function Jogo(props) {
             <MenuPlayer jogador = {jogadores[1]}/>
                         
             {showGameover &&
-                <Menuendgame vencedor = {currentPlayer.id === jogadores[0].id ? jogadores[1].nome : jogadores[0].nome} restart = {restartgame} inicio = {onMenuChange}/>
+                <Menuendgame ultimoPlayer = {currentPlayer.nome} restart = {restartgame} inicio = {onMenuChange}/>
             }
 
         </div>

@@ -39,13 +39,14 @@
 .color span {
   margin: 0% auto;
   font-size: 3vh;
+  color: white;
 }
 
 .color img {
   position: relative;
   margin: 0 auto;
   margin-top: 10%;
-  width: 80%;
+  width: 60%;
 }
 
 .player-info {
@@ -58,7 +59,7 @@
 }
 
 .player-name {
-  color: white;
+  color: black;
   font-size: 6vh;
   margin: auto;
 }

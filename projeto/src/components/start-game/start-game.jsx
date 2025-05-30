@@ -6,15 +6,15 @@ import IPClogo from '../../assets/logos/IPC-branco.png';
 
 const logo = IPClogo;
 const equipas = [
-  { id: 1, escola: "ISEC", cor: "#9d0b0e", cor2: "#ffffff", image: logo },
-  { id: 2, escola: "ESEC", cor: "#ff5300", cor2: "#ffffff", image: logo },
-  { id: 3, escola: "ESAC", cor: "#00c381", cor2: "#ffffff", image: logo },
-  { id: 4, escola: "ISCAC", cor: "#da291c", cor2: "#ffffff", image: logo },
-  { id: 5, escola: "ESTGOH", cor: "#525ea6", cor2: "#ffffff", image: logo },
-  { id: 6, escola: "ESTeSC", cor: "#3cb4e6", cor2: "#ffffff", image: logo },
+  { id: 1, escola: "ISEC", cor: "#9d0b0e", image: logo },
+  { id: 2, escola: "ESEC", cor: "#ff5300", image: logo },
+  { id: 3, escola: "ESAC", cor: "#00c381", image: logo },
+  { id: 4, escola: "ISCAC", cor: "#da291c", image: logo },
+  { id: 5, escola: "ESTGOH", cor: "#525ea6", image: logo },
+  { id: 6, escola: "ESTeSC", cor: "#3cb4e6", image: logo },
 ];
 
-function Startgame({ onMenuChange }) {
+function Startgame({ onMenuChange, type }) {
   const [jogadores, setJogadores] = useState([
     { id: 1, nome: "", equipa: "", aleatoria: false },
     { id: 2, nome: "", equipa: "", aleatoria: false },
@@ -48,6 +48,11 @@ function Startgame({ onMenuChange }) {
   function handleSubmit(e) {
     e.preventDefault();
 
+    if (type === "computador") {
+      jogadores[1].aleatoria = true;
+      jogadores[1].nome = "BOT";
+    }
+
     const getEquipasOcupadas = (idJogador) => {
       return jogadores.filter((_, id) => id !== idJogador).map(j => j.equipa).filter(e => e !== "");
     };
@@ -77,7 +82,7 @@ function Startgame({ onMenuChange }) {
       return;
     }
 
-    onMenuChange("jogo", jogadores);
+    onMenuChange("jogo", jogadores, type);
   }
 
   const coresEscolhidas = {};
@@ -91,9 +96,25 @@ function Startgame({ onMenuChange }) {
     <div className="container-opcoes">
       <form onSubmit={handleSubmit}>
         <div className = "formulario">
-         {jogadores.map(jogador => (
-          <Jogadorops key={jogador.id} equipas = {equipas} jogador={jogador} coresEscolhidas={coresEscolhidas} onChange={mudarValor} />
-        ))}
+        {type === "computador"
+          ? <Jogadorops
+              key={jogadores[0].id}
+              equipas={equipas}
+              jogador={jogadores[0]}
+              coresEscolhidas={coresEscolhidas}
+              onChange={mudarValor}
+              type = {type}
+            />
+          : jogadores.map(jogador => (
+              <Jogadorops
+                key={jogador.id}
+                equipas={equipas}
+                jogador={jogador}
+                coresEscolhidas={coresEscolhidas}
+                onChange={mudarValor}
+              />
+            ))
+        }
         </div>
         <button type="submit">JOGAR</button>
       </form>

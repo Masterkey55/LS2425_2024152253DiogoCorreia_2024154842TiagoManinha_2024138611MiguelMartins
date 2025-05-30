@@ -2,17 +2,14 @@ import "./end-game.css";
 import React, { useState } from "react";
 
 function Menuendgame(props){
-
-
-
-    const {vencedor, restart, inicio} = props
+    const {ultimoPlayer, restart, inicio} = props
 
     return(
         <div className="cinzento">
             <div className="container-endgame">
                 <div className="container-inf">
                     <p className="playerwin">
-                        {vencedor}
+                        {ultimoPlayer}
                     </p>
                     <p className="ganha">🏆 Ganhou o jogo! 🏆</p>
                     <div className="linha"></div>
@@ -21,7 +18,7 @@ function Menuendgame(props){
                         <img src=""/>
                     </button>
                     <button onClick={()=>inicio("inicio")}>
-                        voltar ao Inínio
+                        Voltar ao Início
                         <img src=""/>
                     </button>
                 </div>
