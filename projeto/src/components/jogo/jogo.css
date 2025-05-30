@@ -47,6 +47,7 @@
     height: 100%;;
     z-index: 0;
     border-radius: 15px;
+    transition: background 0.3s ease-in;
 }
 
 .slot-especial {
@@ -123,4 +124,13 @@
 @keyframes animacao-vitoria {
   0% { left: -70%; top: -70%; }
   100% { left: 70%; top: 70%; }
+}
+
+.message {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 5%;
+    font-size: 5vh;
+    margin: 0;
 }

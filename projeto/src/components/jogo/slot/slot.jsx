@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 export default function Slot(props) {
-    const { isHovered, value, row, cor, image, isWinner } = props;
+    const { isHovered, value, row, cor, image, isWinner, showEspecial, slotEspecial } = props;
     let initialPosition = -(row + 1) * 100;
     let tempoAnimacao = (row + 1) / 2 * 0.13;
     const [position, setPosition] = useState(initialPosition);
@@ -18,7 +18,7 @@ export default function Slot(props) {
     }, [value, initialPosition]);
 
     return (
-        <div className={`slot ${isHovered ? "hovered" : ""}`}>
+        <div className={`slot ${isHovered ? "hovered" : ""}`} style = {(showEspecial && slotEspecial) ? {background: "#6edaa0"} : undefined}>
             {value && (
                 <div
                     className={`disc ${value} ${isWinner ? "winner" : ""}`}   

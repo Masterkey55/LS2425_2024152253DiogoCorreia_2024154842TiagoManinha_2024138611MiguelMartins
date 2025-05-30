@@ -1,0 +1,24 @@
+.toggle-especiais {
+    position: absolute;
+    display: flex;
+    top: 4%;
+    left: 2%;
+    width: auto;
+}
+
+.toggle-especiais .slider {
+    background-color: #eee;
+}
+
+.toggle-especiais span {
+    margin: auto 5px;
+    font-size: 3vh;
+}
+
+.toggle-especiais .switch {
+    width: 8.3vh;
+}
+
+.toggle-especiais .switch input:checked + .slider {
+    background-color: #6edaa0;
+}

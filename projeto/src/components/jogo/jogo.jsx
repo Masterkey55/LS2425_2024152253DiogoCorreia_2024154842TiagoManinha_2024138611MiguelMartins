@@ -4,6 +4,7 @@ import Slot from "./slot/slot.jsx";
 import imagemTabuleiro from "../../assets/img/tabuleiro.png";
 import MenuPlayer from "./menu-player/menu-player.jsx";
 import Menuendgame from "./end-game/end-game.jsx";
+import ToggleEspeciais from "./toggleEspeciais/toggleEspeciais.jsx";
 import { checkIfColunaVazia, checkIfVitoria, numerosEspeciais, verificaTabuleiroCheio, getRandomPlayer } from "./jogoFunctions.js";
 import Icons from "./icons/icons.jsx";
 
@@ -17,6 +18,8 @@ function Jogo(props) {
     const [waitJogada, setWaitJogada] = useState(false);
     const [tab_random5, setTab_random5] = useState(numerosEspeciais());
     const [winningSlots, setWinningSlots] = useState([]);
+    const [message, setMessage] = useState("");
+    const [toggleEspeciais, setToggleEspeciais] = useState(false); 
     const [discMatrix, setDiscMatrix] = useState(
         Array.from({ length: 6 }, () => Array(7).fill(null))
     );
@@ -27,6 +30,13 @@ function Jogo(props) {
         }
     
     }, [currentPlayer])
+
+    const sendMessage = (msg) => {
+        setMessage(msg);
+        setTimeout(() => {
+            setMessage("");
+        }, 3000);
+    };
 
     const botPlay = (matrix) => {
         const validCols = [];
@@ -50,7 +60,11 @@ function Jogo(props) {
         }
     };
 
-     const handleClick = (coluna, isBot = false) => {
+    const handleToggleEspeciais = (bool) => {
+        setToggleEspeciais(bool)
+    }
+
+    const handleClick = (coluna, isBot = false) => {
         if (type === "computador" && isBot && currentPlayer.id !== jogadores[1].id) return;
         if (type === "computador" && !isBot && currentPlayer.id !== jogadores[0].id) return;
 
@@ -96,7 +110,7 @@ function Jogo(props) {
                 if (type === "computador" && currentPlayer.id === jogadores[1].id) {
                     setTimeout(() => botPlay(newDiscMatrix), 1500);
                 }
-                console.log("Jogou num slot especial, Jogue de novo!");
+                sendMessage("Jogou num slot especial, jogue de novo!");
             }
         }
     }
@@ -120,11 +134,14 @@ function Jogo(props) {
     const passarProximoJogador = () => {
         const nextPlayer = currentPlayer.id === jogadores[0].id ? jogadores[1] : jogadores[0];
         setCurrentPlayer(nextPlayer);
+        sendMessage("Deixaste passar o tempo, é a vez do outro jogador!");
     }
 
     return (
-        <div className={"container-jogo"}>{/*style={{ backgroundColor: currentPlayer.cor2 + "8A" }}*/}
-            <MenuPlayer passarJogador = {passarProximoJogador} jogador = {jogadores[0]} currentPlayer={currentPlayer}/>
+        <div className={"container-jogo"}>
+            <ToggleEspeciais setToggleEspeciais={handleToggleEspeciais} toggleEspeciais= {toggleEspeciais}/>
+            <h1 className = "message">{message}</h1>
+            <MenuPlayer gameOver={gameOver} passarJogador = {passarProximoJogador} jogador = {jogadores[0]} currentPlayer={currentPlayer}/>
             <div className="container-tabuleiro">
                 { !gameOver && !waitJogada && ((type !== "computador") || (type === "computador" && currentPlayer.id === jogadores[0].id)) &&
                     <div className="disc-container">
@@ -158,6 +175,7 @@ function Jogo(props) {
                                         cor={value ? jogadores.find(j => j.id === value)?.cor : undefined}
                                         image={value ? jogadores.find(j => j.id === value)?.image : undefined}
                                         slotEspecial={especial}
+                                        showEspecial= {toggleEspeciais}
                                     />
                                 );
                             })
@@ -173,7 +191,7 @@ function Jogo(props) {
 
             <Icons restart = {restartgame} inicio = {onMenuChange} fimJogo={gameOver}/>
 
-            <MenuPlayer passarJogador = {passarProximoJogador} jogador = {jogadores[1]} type = {type} currentPlayer={currentPlayer}/> 
+            <MenuPlayer gameOver={gameOver} passarJogador = {passarProximoJogador} jogador = {jogadores[1]} type = {type} currentPlayer={currentPlayer}/> 
                         
             {showGameover &&
                 <Menuendgame ultimoPlayer = {currentPlayer.nome} restart = {restartgame} inicio = {onMenuChange}/>

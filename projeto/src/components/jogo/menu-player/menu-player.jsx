@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './menu-player.css';
 
 export default function MenuPlayer(props) {
-    const { jogador, currentPlayer, passarJogador, type } = props;
+    const { jogador, currentPlayer, passarJogador, type, gameOver } = props;
     const { nome, cor, image, escola } = jogador;
 
     const [timer, setTimer] = useState(10);
@@ -14,12 +14,12 @@ export default function MenuPlayer(props) {
     }, [currentPlayer.id, jogador.id]);
 
     useEffect(() => {
-        if (jogador.id === currentPlayer.id && timer > 0) {
+        if (jogador.id === currentPlayer.id && timer > 0 && !gameOver) {
             const interval = setInterval(() => setTimer(t => t - 1), 1000);
             return () => clearInterval(interval);
         } 
 
-        if (jogador.id === currentPlayer.id && timer === 0) {
+        if (jogador.id === currentPlayer.id && timer === 0 && !gameOver) {
             passarJogador();
         }
     }, [timer, jogador.id, currentPlayer.id]);
