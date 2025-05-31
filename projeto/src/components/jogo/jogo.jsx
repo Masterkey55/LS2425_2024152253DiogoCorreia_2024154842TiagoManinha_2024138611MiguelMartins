@@ -7,6 +7,7 @@ import Menuendgame from "./end-game/end-game.jsx";
 import ToggleEspeciais from "./toggleEspeciais/toggleEspeciais.jsx";
 import { checkIfColunaVazia, checkIfVitoria, numerosEspeciais, verificaTabuleiroCheio, getRandomPlayer } from "./jogoFunctions.js";
 import Icons from "./icons/icons.jsx";
+import IPClogo from '../../assets/logos/IPC-branco.png';
 
 function Jogo(props) {
     const { onMenuChange, jogadores, type } = props;
@@ -65,8 +66,8 @@ function Jogo(props) {
     }
 
     const handleClick = (coluna, isBot = false) => {
-        if (type === "computador" && isBot && currentPlayer.id !== jogadores[1].id) return;
-        if (type === "computador" && !isBot && currentPlayer.id !== jogadores[0].id) return;
+        if (type === "computador" && isBot && currentPlayer.id != jogadores[1].id) return;
+        if (type === "computador" && !isBot && currentPlayer.id != jogadores[0].id) return;
 
         if (checkIfColunaVazia(coluna, discMatrix) && !gameOver) {
             const newDiscMatrix = [...discMatrix];
@@ -102,7 +103,7 @@ function Jogo(props) {
 
             const indiceslot = rowjogada * 7 + coluna;
             const cainaespecial = tab_random5.includes(indiceslot);
-            console.log("Caiu em slot especial: ", cainaespecial);
+
             if(!cainaespecial){
                 const nextPlayer = currentPlayer.id === jogadores[0].id ? jogadores[1] : jogadores[0];
                 setCurrentPlayer(nextPlayer);
@@ -141,14 +142,14 @@ function Jogo(props) {
         <div className={"container-jogo"}>
             <ToggleEspeciais setToggleEspeciais={handleToggleEspeciais} toggleEspeciais= {toggleEspeciais}/>
             <h1 className = "message">{message}</h1>
-            <MenuPlayer gameOver={gameOver} passarJogador = {passarProximoJogador} jogador = {jogadores[0]} currentPlayer={currentPlayer}/>
+            <MenuPlayer discMatrix={discMatrix} gameOver={gameOver} passarJogador = {passarProximoJogador} jogador = {jogadores[0]} currentPlayer={currentPlayer}/>
             <div className="container-tabuleiro">
-                { !gameOver && !waitJogada && ((type !== "computador") || (type === "computador" && currentPlayer.id === jogadores[0].id)) &&
+                { !gameOver && !waitJogada && ((type != "computador") || (type === "computador" && currentPlayer.id === jogadores[0].id)) &&
                     <div className="disc-container">
                         <div style={{
                             left: `${topDisc * 14.05}%`, 
                             backgroundColor: currentPlayer.cor,
-                            backgroundImage: `url(${currentPlayer.image})`,
+                            backgroundImage: `url(${IPClogo})`,
                             backgroundPosition: "center center",
                             backgroundSize: "80% 77%",
                         }}>
@@ -191,10 +192,10 @@ function Jogo(props) {
 
             <Icons restart = {restartgame} inicio = {onMenuChange} fimJogo={gameOver}/>
 
-            <MenuPlayer gameOver={gameOver} passarJogador = {passarProximoJogador} jogador = {jogadores[1]} type = {type} currentPlayer={currentPlayer}/> 
+            <MenuPlayer discMatrix={discMatrix} gameOver={gameOver} passarJogador = {passarProximoJogador} jogador = {jogadores[1]} type = {type} currentPlayer={currentPlayer}/> 
                         
             {showGameover &&
-                <Menuendgame ultimoPlayer = {currentPlayer.nome} restart = {restartgame} inicio = {onMenuChange}/>
+                <Menuendgame isVitoria={checkIfVitoria(discMatrix)} ultimoPlayer = {currentPlayer.nome} restart = {restartgame} inicio = {onMenuChange}/>
             }
 
         </div>

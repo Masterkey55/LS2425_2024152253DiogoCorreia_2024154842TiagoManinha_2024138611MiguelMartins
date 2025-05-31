@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./jogador-ops.css";
+import IPClogo from '../../../assets/logos/IPC-branco.png';
 
 function Jogadorops({ jogador, coresEscolhidas, onChange, equipas, type }) {
   const [aleatoria, setAleatoria] = useState(false);
@@ -21,7 +22,7 @@ function Jogadorops({ jogador, coresEscolhidas, onChange, equipas, type }) {
       <h2>ESCOLHA A EQUIPA DO IPC</h2>
       <div className = "team-container">
         {equipas.map((equipa) => {
-          const corJaEscolhida = Object.values(coresEscolhidas).includes(equipa.id) && jogador.equipa !== equipa.id;
+          const corJaEscolhida = Object.values(coresEscolhidas).includes(equipa.id) && jogador.equipa != equipa.id;
           const bloqueada = (corJaEscolhida || aleatoria);
 
           return (
@@ -34,7 +35,7 @@ function Jogadorops({ jogador, coresEscolhidas, onChange, equipas, type }) {
               cursor: bloqueada ? "not-allowed" : "pointer",
               opacity: bloqueada ? 0.5 : 1
             }}>
-              <img src={equipa.image} alt={equipa.escola} />
+              <img src={IPClogo} alt={equipa.escola} />
               <span className={"team-name"}>{equipa.escola}</span>
             </div>
           )

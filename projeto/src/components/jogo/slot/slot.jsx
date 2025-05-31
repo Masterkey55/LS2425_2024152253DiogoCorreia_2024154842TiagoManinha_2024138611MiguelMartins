@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import IPClogo from '../../../assets/logos/IPC-branco.png';
 
 export default function Slot(props) {
     const { isHovered, value, row, cor, image, isWinner, showEspecial, slotEspecial } = props;
@@ -26,7 +27,7 @@ export default function Slot(props) {
                         transition: `top ${tempoAnimacao}s linear`,
                         top: `${position}%`,
                         backgroundColor: cor,
-                        backgroundImage: image ? `url(${image})` : "none",
+                        backgroundImage: `url(${IPClogo})`,
                         backgroundSize: "80% 80%",
                         backgroundPosition: "center"
                     }}

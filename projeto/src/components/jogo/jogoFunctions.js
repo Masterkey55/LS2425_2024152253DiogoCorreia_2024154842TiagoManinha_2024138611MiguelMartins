@@ -20,7 +20,7 @@ export function numerosEspeciais() {
 export function checkIfVitoria(discMatrix) {
     for (let row = 0; row < 6; row++) {
         for (let col = 0; col < 7; col++) {
-            if (discMatrix[row][col] !== null) {
+            if (discMatrix[row][col] != null) {
                 const player = discMatrix[row][col];
                 if (col + 3 < 7 &&
                     player === discMatrix[row][col + 1] &&
@@ -51,7 +51,7 @@ export function checkIfVitoria(discMatrix) {
 }
 
 export function verificaTabuleiroCheio(matrix) {
-    return matrix.flat().every(slot => slot !== null); // colocar a matriz como array unidimensional e verificar se todos os slots estão preenchidos
+    return matrix.flat().every(slot => slot != null); // colocar a matriz como array unidimensional e verificar se todos os slots estão preenchidos
 }
 
 export function getRandomPlayer(jogadores) {

@@ -1,17 +1,14 @@
 import React, { useState } from "react";
 import "./start-game.css";
 import Jogadorops from "./jogador-ops/jogador-ops.jsx";
-import IPClogo from '../../assets/logos/IPC-branco.png';
 
-
-const logo = IPClogo;
 const equipas = [
-  { id: 1, escola: "ISEC", cor: "#9d0b0e", image: logo },
-  { id: 2, escola: "ESEC", cor: "#ff5300", image: logo },
-  { id: 3, escola: "ESAC", cor: "#00c381", image: logo },
-  { id: 4, escola: "ISCAC", cor: "#da291c", image: logo },
-  { id: 5, escola: "ESTGOH", cor: "#525ea6", image: logo },
-  { id: 6, escola: "ESTeSC", cor: "#3cb4e6", image: logo },
+  { id: 1, escola: "ISEC", cor: "#9d0b0e" },
+  { id: 2, escola: "ESEC", cor: "#ff5300" },
+  { id: 3, escola: "ESAC", cor: "#00c381"},
+  { id: 4, escola: "ISCAC", cor: "#da291c"},
+  { id: 5, escola: "ESTGOH", cor: "#525ea6"},
+  { id: 6, escola: "ESTeSC", cor: "#3cb4e6"},
 ];
 
 function Startgame({ onMenuChange, type }) {
@@ -54,7 +51,7 @@ function Startgame({ onMenuChange, type }) {
     }
 
     const getEquipasOcupadas = (idJogador) => {
-      return jogadores.filter((_, id) => id !== idJogador).map(j => j.equipa).filter(e => e !== "");
+      return jogadores.filter((_, id) => id != idJogador).map(j => j.equipa).filter(e => e != "");
     };
     
     let algumEmBranco = false;
@@ -78,7 +75,6 @@ function Startgame({ onMenuChange, type }) {
         break;
       }
     }
-    console.log(jogadores);
 
     if (algumEmBranco) {
       alert("Todos os jogadores devem preencher nome e escolher uma cor.");
