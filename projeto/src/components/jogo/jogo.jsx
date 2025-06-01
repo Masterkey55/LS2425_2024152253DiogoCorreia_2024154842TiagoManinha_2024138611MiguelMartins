@@ -142,7 +142,7 @@ function Jogo(props) {
         <div className={"container-jogo"}>
             <ToggleEspeciais setToggleEspeciais={handleToggleEspeciais} toggleEspeciais= {toggleEspeciais}/>
             <h1 className = "message">{message}</h1>
-            <MenuPlayer discMatrix={discMatrix} gameOver={gameOver} passarJogador = {passarProximoJogador} jogador = {jogadores[0]} currentPlayer={currentPlayer}/>
+            <MenuPlayer discMatrix={discMatrix} gameOver={gameOver} passarJogador = {passarProximoJogador} jogador = {jogadores[0]} currentPlayer={currentPlayer} waitJogada = {waitJogada}/>
             <div className="container-tabuleiro">
                 { !gameOver && !waitJogada && ((type != "computador") || (type === "computador" && currentPlayer.id === jogadores[0].id)) &&
                     <div className="disc-container">
@@ -192,7 +192,7 @@ function Jogo(props) {
 
             <Icons restart = {restartgame} inicio = {onMenuChange} fimJogo={gameOver}/>
 
-            <MenuPlayer discMatrix={discMatrix} gameOver={gameOver} passarJogador = {passarProximoJogador} jogador = {jogadores[1]} type = {type} currentPlayer={currentPlayer}/> 
+            <MenuPlayer discMatrix={discMatrix} gameOver={gameOver} passarJogador = {passarProximoJogador} jogador = {jogadores[1]} type = {type} currentPlayer={currentPlayer} waitJogada = {waitJogada}/> 
                         
             {showGameover &&
                 <Menuendgame isVitoria={checkIfVitoria(discMatrix)} ultimoPlayer = {currentPlayer.nome} restart = {restartgame} inicio = {onMenuChange}/>

@@ -3,42 +3,40 @@ import './menu-player.css';
 import IPClogo from '../../../assets/logos/IPC-branco.png';
 
 export default function MenuPlayer(props) {
-    const { jogador, currentPlayer, passarJogador, type, gameOver, discMatrix } = props;
+    const { jogador, currentPlayer, passarJogador, type, gameOver, discMatrix, waitJogada } = props;
     const { nome, cor, image, escola } = jogador;
-    const [timer, setTimer] = useState(10);
-    const isMatrixEmpty = discMatrix.every(row => row.every(cell => cell === null));
-
+    const [timer, setTimer] = useState(0);
+    
     useEffect(() => {
-        if (isMatrixEmpty) {
-            setTimer(10);
+        const isMatrixEmpty = discMatrix.every(row => row.every(cell => cell === null));
+        if (isMatrixEmpty || jogador.id == currentPlayer.id) {
+            setTimer(0);
         }
-    }, [isMatrixEmpty]);
+    }, [discMatrix]);
 
     useEffect(() => {
         if (jogador.id != currentPlayer.id) {
-            setTimer(10);
+            setTimer(0);
         }
     }, [currentPlayer.id, jogador.id]);
 
     useEffect(() => {
-        if (jogador.id === currentPlayer.id && timer > 0 && !gameOver) {
-            const interval = setInterval(() => setTimer(t => t - 1), 1000);
+        if (jogador.id === currentPlayer.id && timer < 10 && !gameOver) {
+            const interval = setInterval(() => setTimer(t => t + 1), 1000);
             return () => clearInterval(interval);
         } 
 
-        if (jogador.id === currentPlayer.id && timer === 0 && !gameOver) {
+        if (jogador.id === currentPlayer.id && timer === 10 && !gameOver) {
             passarJogador();
         }
     }, [timer, jogador.id, currentPlayer.id]);
 
     const timerColor =
-        timer > 7 ? "green" :
-        timer > 5 ? "yellow" :
-        timer > 3 ? "orange" :
+        timer < 8 ? "green" :
         "red";
 
     return (
-        <div className="menu-player">
+        <div className="menu-player" style={currentPlayer.id == jogador.id && !waitJogada && !gameOver ? {boxShadow: `0px 0px 25px 3px ${currentPlayer.cor}`} : undefined}>
             <div className="color-container">
                 <div className="color" style={{ backgroundColor: cor }}>
                     <img src={IPClogo} alt={escola} />

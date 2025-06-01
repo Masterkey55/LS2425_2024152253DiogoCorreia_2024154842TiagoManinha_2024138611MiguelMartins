@@ -34,30 +34,28 @@
     text-shadow: 1px 1px 5px #000;
 }
 
-.linha {
-    width: 90%;
-    height: 4px;
-    background-color: #FFD700;
-    border-radius: 50px;
-    margin: 20px auto;
-}
 
 .container-inf button {
     font-family: "Jersey 10", sans-serif;
-    padding: 15px 35px;
+    padding: 15px 25px;
     border-radius: 1.5vh;
-    margin: 40px 10px 30px 10px;
     background-color: #ccc;
-    border: 2px solid #FFD700;
+    border: 2px solid WHITE;
     cursor: pointer;
     text-shadow: 0px 0px 5px #000;
-    color: #FFD700;
+    color: WHITE;
     text-transform: uppercase;
     font-weight: lighter;
-    font-size: 2.5rem;
-    box-shadow: 0 0px 8px #FFD700;
+    font-size: 3.5rem;
     transition: all 0.2s;
+    margin-right: 1%;
+    margin-left: auto;
     outline: none;
+}
+
+.container-inf button:last-of-type {
+    margin-left: 1%;
+    margin-right: auto;
 }
 
 .container-inf button:hover {

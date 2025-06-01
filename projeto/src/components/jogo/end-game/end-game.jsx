@@ -14,7 +14,6 @@ function Menuendgame(props){
                         </p>)
                     }
                     <p className="ganha">{isVitoria ? "🏆 Ganhou o jogo! 🏆" : "Empate!"}</p>
-                    <div className="linha"></div>
                     <button onClick={()=>restart()}>
                         Jogar outra vez
                         <img src=""/>
