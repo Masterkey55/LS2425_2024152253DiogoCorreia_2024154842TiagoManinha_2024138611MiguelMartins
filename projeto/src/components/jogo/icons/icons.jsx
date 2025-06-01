@@ -1,7 +1,7 @@
 import "./icons.css";
 
-import home from '../../../assets/img/home.png';
-import imgrestart from '../../../assets/img/restart.png';
+import home from '../../../assets/icons/home.png';
+import imgrestart from '../../../assets/icons/restart.png';
 
 function Icons(props){
 

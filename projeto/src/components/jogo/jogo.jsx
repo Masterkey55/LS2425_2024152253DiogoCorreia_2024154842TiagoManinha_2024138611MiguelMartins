@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./jogo.css";
 import Slot from "./slot/slot.jsx";
-import imagemTabuleiro from "../../assets/img/tabuleiro.png";
+import imagemTabuleiro from "../../assets/icons/tabuleiro.png";
 import MenuPlayer from "./menu-player/menu-player.jsx";
 import Menuendgame from "./end-game/end-game.jsx";
 import ToggleEspeciais from "./toggleEspeciais/toggleEspeciais.jsx";

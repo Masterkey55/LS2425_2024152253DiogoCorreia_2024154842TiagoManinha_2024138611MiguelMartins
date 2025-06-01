@@ -1,8 +1,8 @@
 import React from "react";
 import Botao from "./botao/botao.jsx";
 import "./inicio.css";
-import imagemComputador from "../../assets/logos/computador.svg";
-import imagemJogador from "../../assets/logos/jogador.svg";
+import imagemComputador from "../../assets/icons/computador.svg";
+import imagemJogador from "../../assets/icons/jogador.svg";
 
 function Inicio(props) {  
     let modosDeJogo = [
